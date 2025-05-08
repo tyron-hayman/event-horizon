@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { VueLenis, useLenis } from 'lenis/vue'
-import HomeView from './views/HomeView.vue'
-import { SpeedInsights } from '@vercel/speed-insights/vue'
+import GlobalHeader from './components/GlobalHeader.vue'
+// import { SpeedInsights } from '@vercel/speed-insights/vue'
 
 useLenis(() => {
   // called every scroll
@@ -9,8 +9,9 @@ useLenis(() => {
 </script>
 
 <template>
-  <SpeedInsights />
+  <!-- <SpeedInsights /> -->
+  <GlobalHeader />
   <VueLenis root>
-    <HomeView />
+    <RouterView />
   </VueLenis>
 </template>

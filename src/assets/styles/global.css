@@ -6,4 +6,22 @@ html {
 
 body {
   background: oklch(20.5% 0 0);
+}
+
+/* forms */
+.formInputs {
+  border: rgba(255, 255, 255, 0.1) 1px solid;
+  -border-radius: 20px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -o-border-radius: 20px;
+  padding: 0.5rem 1rem;
+  color: oklch(100% 100% 100%);
+  outline: none;
+}
+.formInputs::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+.formInputs::placeholder {
+  color: rgba(255, 255, 255, 0.5);
 }/*# sourceMappingURL=global.css.map */

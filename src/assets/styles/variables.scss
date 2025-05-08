@@ -1,3 +1,13 @@
+// variables
+$browsers: '', '-moz', '-webkit', '-o';
+
 //Branding
 $background: oklch(20.5% 0 0);
 $white: oklch(100% 100% 100%);
+
+// Mixins
+@mixin borderRadius($radius) {
+  @each $browser in $browsers {
+    #{$browser}-border-radius: $radius;
+  }
+}

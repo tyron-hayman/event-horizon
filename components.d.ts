@@ -9,12 +9,10 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AboutComponent: typeof import('./src/components/AboutComponent.vue')['default']
-    BackgroundGradient: typeof import('./src/components/BackgroundGradient.vue')['default']
-    Cursor: typeof import('./src/components/Cursor.vue')['default']
     CursorComponent: typeof import('./src/components/CursorComponent.vue')['default']
     ExerienceComponent: typeof import('./src/components/ExerienceComponent.vue')['default']
     FooterComponent: typeof import('./src/components/FooterComponent.vue')['default']
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    GlobalHeader: typeof import('./src/components/GlobalHeader.vue')['default']
     HeroComponent: typeof import('./src/components/HeroComponent.vue')['default']
     IconCommunity: typeof import('./src/components/icons/IconCommunity.vue')['default']
     IconDocumentation: typeof import('./src/components/icons/IconDocumentation.vue')['default']
@@ -24,8 +22,6 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TestimonialsComponent: typeof import('./src/components/TestimonialsComponent.vue')['default']
-    TheWelcome: typeof import('./src/components/TheWelcome.vue')['default']
-    WelcomeItem: typeof import('./src/components/WelcomeItem.vue')['default']
     WorkComponent: typeof import('./src/components/WorkComponent.vue')['default']
   }
 }

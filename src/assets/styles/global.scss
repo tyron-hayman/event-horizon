@@ -9,3 +9,16 @@ html {
 body {
   background: v.$background;
 }
+
+/* forms */
+
+.formInputs {
+  border: rgba(255, 255, 255, 0.1) 1px solid;
+  @include v.borderRadius(20px);
+  padding: 0.5rem 1rem;
+  color: v.$white;
+  outline: none;
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+}
