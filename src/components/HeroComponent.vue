@@ -15,7 +15,6 @@ const { scrollYProgress } = useScroll({
 })
 const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
 const scale = useTransform(scrollYProgress, [0, 0.8], [1, 0.7])
-const y = useTransform(scrollYProgress, [0, 0.8], [0, -200])
 const blur = useTransform(scrollYProgress, [0, 0.8], ['blur(0px)', 'blur(8px)'])
 
 // Animation variants for each element
@@ -79,8 +78,8 @@ onUnmounted(() => {
 <template>
   <motion.div
     ref="heroRef"
-    class="w-full relative md:fixed inset-0 px-5 md:px-10 xl:p-0 flex items-center justify-center"
-    :style="{ opacity, scale, y, filter: blur }"
+    class="w-full relative md:fixed inset-0 px-5 pt-20 md:pt-0 md:px-10 xl:p-0 flex items-center justify-center"
+    :style="{ opacity, scale, filter: blur }"
   >
     <div class="container">
       <div class="flex items-center pb-5 w-full">

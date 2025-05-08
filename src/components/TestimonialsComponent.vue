@@ -33,11 +33,7 @@ const testVariants = {
 
 <template>
   <div class="w-full px-5 py-20 md:px-10 xl:px-0 md:pt-60 md:pb-20 flex justify-center">
-    <div
-      class="container"
-      @mouseover="cursorStore.hoveredLove"
-      @mouseleave="cursorStore.notHovered"
-    >
+    <div class="container">
       <motion.h2
         class="text-white text-6xl md:text-8xl xl:text-[5vw] font-normal block pb-20 px-0 md:px-20 md:pb-20 text-center"
         :variants="variants"
@@ -58,6 +54,8 @@ const testVariants = {
             initial="hidden"
             whileInView="visible"
             :inViewOptions="{ once: true, amount: 0.25 }"
+            @mouseover="cursorStore.hoveredLove"
+            @mouseleave="cursorStore.notHovered"
           >
             <div class="flex items-center">
               <div
