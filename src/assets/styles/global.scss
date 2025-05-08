@@ -1,0 +1,11 @@
+@use 'variables' as v;
+
+*,
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: v.$background;
+}

@@ -1,0 +1,22 @@
+{
+  "testimonials": [
+    {
+      "name": "Ian Bowles",
+      "content": "Tyron is an exceptional developer whose talent and professionalism make him a pleasure to work with. He responds promptly to requests for scoping work, asking relevant and insightful questions tailored to the brief. His initial deliverables include options and documentation, allowing for flexibility in creative adjustments if needed. Tyron creates robust builds that account for diverse environments, such as varying browsers and devices, ensuring compatibility and performance. The products he delivers are complete, solid, and aligned with clients’ goals, consistently meeting their needs. My experiences working with Tyron have been outstanding, and I look forward to collaborating with him again in the future.",
+      "role": "Senior Visual Designer @ We The Collective",
+      "image": "images/ian.jpeg"
+    },
+    {
+      "name": "Sid Saraiya",
+      "content": "I always appreciate working with Tyron. I know him from a previous career and stand by his techical knowledge when it comes to anything that needs to exist and serve users on the web. Added bonus is he has a good aptitude for design. I can send him a copydeck and be confident he’ll make the layout and look fit the brand",
+      "role": "Founder & Business Consultant @ Sid Saraiya Consulting",
+      "image": "images/sid.jpeg"
+    },
+    {
+      "name": "Josh Arlitt",
+      "content": "Tyron was an absolute joy to work with. He had great work ethic and provided excellent mentoring to a fellow employee. Several times I recall him going above and beyond to meet and exceed client expectations. I'm very sad to see him go, he will be a tremendous asset to his next employer.",
+      "role": "Seniro Developer @ Sparkjoy Studios",
+      "image": "images/josh.jpeg"
+    }
+  ]
+}

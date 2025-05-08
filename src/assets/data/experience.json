@@ -1,0 +1,29 @@
+{
+  "experience": [
+    {
+      "company": "Freelance",
+      "date": "2019 - 2022 & 2023 - 2025",
+      "role": "Web Design, Web Development & Maintenance"
+    },
+    {
+      "company": "Purple Pig",
+      "date": "2023",
+      "role": "Web Development & Maintenance"
+    },
+    {
+      "company": "Sparkjoy Studios",
+      "date": "2022",
+      "role": "Lead Front-end Developer"
+    },
+    {
+      "company": "The Bannermen",
+      "date": "2016 - 2019",
+      "role": "Web Developer"
+    },
+    {
+      "company": "Marca Studio",
+      "date": "2012 - 2016",
+      "role": "Web Developer"
+    }
+  ]
+}
