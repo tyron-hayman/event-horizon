@@ -54,7 +54,7 @@ const greetings: Array<string> = [
 
 const titleArr: Array<string> | undefined = props.title?.split(' ')
 
-let animationInterval: number | null = null
+let animationInterval: null | ReturnType<typeof setInterval> = null
 const currentIndex: Ref = ref(0)
 
 const animateSequence = () => {
@@ -78,7 +78,7 @@ onUnmounted(() => {
 <template>
   <motion.div
     ref="heroRef"
-    class="w-full relative md:fixed inset-0 px-5 pt-20 md:pt-0 md:px-10 xl:p-0 flex items-center justify-center"
+    class="w-full relative md:fixed min-h-screen inset-0 px-5 pt-20 md:pt-0 md:px-10 xl:p-0 flex items-center justify-center"
     :style="{ opacity, scale, filter: blur }"
   >
     <div class="container">

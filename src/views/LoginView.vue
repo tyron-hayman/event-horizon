@@ -1,5 +1,19 @@
 <script setup lang="ts">
 import { motion } from 'motion-v'
+import { ref, onMounted } from 'vue'
+import { supabase } from '@/utilities/supabaseClient'
+import type { Users } from '@/types/types'
+
+const usersdata: Array<Users> = ref([])
+
+async function getUsers() {
+  const { data: users, error } = await supabase.from('users').select('*')
+  usersdata.value = users
+  console.log(usersdata.value)
+}
+onMounted(() => {
+  getUsers()
+})
 
 const variants = {
   hidden: { opacity: 0, y: 50 },
@@ -12,7 +26,7 @@ const variants = {
 </script>
 
 <template>
-  <div class="w-full h-screen flex items-center justify-center">
+  <div class="w-full h-screen min-h-screen flex items-center justify-center">
     <motion.div
       class="rounded-3xl border-white/10 border-1 border-solid p-10 w-full md:w-[450px]"
       :variants="variants"
