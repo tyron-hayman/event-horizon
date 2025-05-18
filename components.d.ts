@@ -14,6 +14,7 @@ declare module 'vue' {
     CursorComponent: typeof import('./src/components/CursorComponent.vue')['default']
     ExerienceComponent: typeof import('./src/components/ExerienceComponent.vue')['default']
     FooterComponent: typeof import('./src/components/FooterComponent.vue')['default']
+    GlobalLoader: typeof import('./src/components/GlobalLoader.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     HeroComponent: typeof import('./src/components/HeroComponent.vue')['default']
     IconCommunity: typeof import('./src/components/icons/IconCommunity.vue')['default']
