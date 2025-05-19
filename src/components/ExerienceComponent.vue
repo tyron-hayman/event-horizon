@@ -18,7 +18,7 @@ const variants = {
 
 <template>
   <div class="w-full px-5 py-20 md:px-10 xl:px-0 md:py-10 flex justify-center">
-    <div class="container">
+    <div class="container min-h-[500px]">
       <motion.h2
         class="text-white text-3xl md:text-4xl font-normal block pb-10 md:pb-20"
         :variants="variants"

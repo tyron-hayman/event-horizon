@@ -63,7 +63,9 @@ const openModal = (index: number) => {
 </script>
 
 <template>
-  <div class="w-full px-5 py-20 md:px-10 xl:px-0 md:py-40 md:!mt-[100vh] flex justify-center">
+  <div
+    class="w-full px-5 py-20 md:px-10 xl:px-0 md:py-40 md:!mt-[100vh] flex justify-center min-h-[700px]"
+  >
     <div v-if="projectData" class="container">
       <motion.h2
         class="text-white text-3xl md:text-6xl font-normal block pb-10 md:pb-20"

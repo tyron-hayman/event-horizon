@@ -33,7 +33,7 @@ const testVariants = {
 
 <template>
   <div class="w-full px-5 py-20 md:px-10 xl:px-0 md:pt-60 md:pb-20 flex justify-center">
-    <div class="container">
+    <div class="container min-h-[500px]">
       <motion.h2
         class="text-white text-6xl md:text-8xl xl:text-[5vw] font-normal block pb-20 px-0 md:px-20 md:pb-20 text-center"
         :variants="variants"

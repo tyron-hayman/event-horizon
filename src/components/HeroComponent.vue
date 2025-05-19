@@ -78,7 +78,7 @@ onUnmounted(() => {
 <template>
   <motion.div
     ref="heroRef"
-    class="w-full relative md:fixed inset-0 px-5 pt-20 md:pt-0 md:px-10 xl:p-0 flex items-center justify-center"
+    class="w-full relative md:fixed inset-0 px-5 pt-20 md:pt-0 md:px-10 xl:p-0 flex items-center justify-center min-h-[700px]"
     :style="{ opacity, scale, filter: blur }"
   >
     <div class="container">
@@ -89,7 +89,7 @@ onUnmounted(() => {
           animate="visible"
           :variants="variants"
         >
-          <img :src="image" class="w-full" alt="My Avatar" />
+          <img :src="image" width="100" height="100" alt="My Avatar" />
         </motion.div>
         <div class="pl-5 w-1/2">
           <h3 class="text-2xl md:text-5xl font-normal text-white w-full">
