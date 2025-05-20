@@ -40,11 +40,11 @@ const variants = {
           <h3 class="text-white text-2xl p-0 m-0 w-full md:w-4/12 lg:w-3/12">
             {{ exp.company }}
           </h3>
-          <p class="text-nuetral-500 text-md lg:text-xl p-0 py-4 md:m-0 w-full md:w-6/12">
+          <p class="text-neutral-500 text-md lg:text-xl p-0 py-4 md:m-0 w-full md:w-6/12">
             {{ exp.role }}
           </p>
           <p
-            class="text-nuetral-500 text-md lg:text-xl p-0 m-0 w-full md:w-4/12 lg:w-3/12 md:text-right"
+            class="text-neutral-500 text-md lg:text-xl p-0 m-0 w-full md:w-4/12 lg:w-3/12 md:text-right"
           >
             {{ exp.date }}
           </p>

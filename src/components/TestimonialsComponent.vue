@@ -64,7 +64,7 @@ const testVariants = {
               ></div>
               <h3 class="text-white text-4xl font-normal">{{ exp.name }}</h3>
             </div>
-            <p class="text-nuetral-500 text-lg leading-loose py-5">{{ exp.content }}</p>
+            <p class="text-neutral-500 text-lg leading-loose py-5">{{ exp.content }}</p>
             <p class="text-white text-lg">{{ exp.role }}</p>
           </motion.div>
         </div>

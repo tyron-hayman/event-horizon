@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { motion, useScroll, useTransform } from 'motion-v'
+import { motion } from 'motion-v'
 import type { Ref } from 'vue'
 import { ref, onMounted, onUnmounted } from 'vue'
 import { ArrowDown } from 'lucide-vue-next'
@@ -10,12 +10,9 @@ const props = defineProps<{
   image?: string
 }>()
 const heroRef: Ref = ref(null)
-const { scrollYProgress } = useScroll({
-  offset: ['start start', '100vh'],
-})
-const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
-const scale = useTransform(scrollYProgress, [0, 0.8], [1, 0.7])
-const blur = useTransform(scrollYProgress, [0, 0.8], ['blur(0px)', 'blur(8px)'])
+// const { scrollYProgress } = useScroll({
+//   offset: ['start start', '100vh'],
+// })
 
 // Animation variants for each element
 const variants = {
@@ -78,8 +75,7 @@ onUnmounted(() => {
 <template>
   <motion.div
     ref="heroRef"
-    class="w-full relative md:fixed inset-0 px-5 pt-20 md:pt-0 md:px-10 xl:p-0 flex items-center justify-center min-h-[700px]"
-    :style="{ opacity, scale, filter: blur }"
+    class="w-full relative px-5 pt-20 md:pt-0 md:px-10 xl:p-0 flex items-center justify-center h-screen min-h-[700px]"
   >
     <div class="container">
       <div class="flex items-center pb-5 w-full">
