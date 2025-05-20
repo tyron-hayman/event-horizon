@@ -1,13 +1,8 @@
 <script setup lang="ts">
 import { defineAsyncComponent } from 'vue'
-import { VueLenis, useLenis } from 'lenis/vue'
 import { SpeedInsights } from '@vercel/speed-insights/vue'
 
 const HomeView = defineAsyncComponent(() => import('@/views/HomeView.vue'))
-
-useLenis(() => {
-  // called every scroll
-})
 </script>
 
 <template>
