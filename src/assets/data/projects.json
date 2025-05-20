@@ -7,7 +7,7 @@
       "company": "Sparkjoy Studios",
       "content": "While working at Sparkjoy Studio, I lead the development of the Corpus Christi project. The project uses a custom built Wordpress theme and leverages ACF for dynamic blocks. Additionally, during the development of this project I mentored a junior developer, giving guidance and assisting in any roadblocks they hit.",
       "link": "https://corpuschristi.ca/",
-      "image": "images/work/cc.jpg"
+      "image": "https://wp.tyronhayman.me/wp-content/uploads/2024/12/cc.jpg"
     },
     {
       "name": "Sid Saraiya",
@@ -16,7 +16,7 @@
       "company": "Freelance",
       "content": "I worked closely with Sid to refresh his website and take advantage of current trends. The website is built upon Wordpress using a custom built theme.",
       "link": "https://sidsaraiya.com/",
-      "image": "images/work/sid.png"
+      "image": "https://wp.tyronhayman.me/wp-content/uploads/2025/01/Screenshot-2025-01-05-at-9.05.25 PM.png"
     },
     {
       "name": "Anxiety Canada",
@@ -25,7 +25,7 @@
       "company": "Sparkjoy Studios",
       "content": "Anxiety Canada was in need of a redesign and redevelopment of a slow and outdated website. As the lead front-end developer at Sparkjoy Studios, I lead the redevelopment of a custom Wordpress theme. Additionally, I development child themes for a LMS and Fundrasing sub sites of Anxiety Canada.",
       "link": "https://www.anxietycanada.com/",
-      "image": "images/work/ac.png"
+      "image": "https://wp.tyronhayman.me/wp-content/uploads/2024/10/ac.png"
     },
     {
       "name": "Borders In Globalization",
@@ -34,7 +34,7 @@
       "company": "Sparkjoy Studios",
       "content": "As the lead front-end developer at Sparkjoy Studios, I developed a custom Wordpress theme based on designs provided by the design team. The project required a fast turn around and leaveraged ACF for custom blocks.",
       "link": "https://biglobalization.org/",
-      "image": "images/work/big.png"
+      "image": "https://wp.tyronhayman.me/wp-content/uploads/2024/10/big.png"
     }
   ]
 }
