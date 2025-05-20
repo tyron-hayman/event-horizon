@@ -11,6 +11,10 @@ defineProps<{
 }>()
 const date: Date = new Date()
 const cursorStore = useCursorStore()
+const socialLinks: Array<{ title: string; link: string }> = [
+  { title: 'Github', link: 'https://github.com/tyron-hayman' },
+  { title: 'LinkedIn', link: 'https://www.linkedin.com/in/tyronhayman/' },
+]
 
 const variants = {
   hidden: { opacity: 0, y: 50 },
@@ -55,6 +59,9 @@ const variants = {
       <div class="md:flex justify-between">
         <p class="text-white text-md !mb-5 md:!mb-0">
           {{ `${footerContentLeft} ${' '} ${date.getFullYear()}` }}
+          <span v-for="(social, index) in socialLinks" :key="`social${index}`">
+            | <a :href="social.link" target="_blank">{{ social.title }}</a></span
+          >
         </p>
         <p class="text-white text-md">{{ footerContentRight }}</p>
       </div>
