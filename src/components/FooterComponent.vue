@@ -3,12 +3,18 @@ import { motion } from 'motion-v'
 import { useCursorStore } from '@/stores/cursor'
 import type { LucideIcon } from 'lucide-vue-next'
 
-defineProps<{
+interface IProps {
   title?: string
   email?: string
+  hide?: boolean
   footerContentLeft?: string
   footerContentRight?: string | HTMLElement | LucideIcon
-}>()
+}
+
+withDefaults(defineProps<IProps>(), {
+  hide: false,
+})
+
 const date: Date = new Date()
 const cursorStore = useCursorStore()
 const socialLinks: Array<{ title: string; link: string }> = [
@@ -28,7 +34,7 @@ const variants = {
 
 <template>
   <div class="w-full px-5 py-20 md:px-10 xl:px-0 md:pt-60 md:pb-20 flex flex-wrap justify-center">
-    <div class="container">
+    <div class="container" v-if="!hide">
       <motion.h2
         class="text-neutral-700 text-6xl md:text-8xl xl:text-[10vw] font-normal block"
         :variants="variants"

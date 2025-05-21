@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue'
-import { SpeedInsights } from '@vercel/speed-insights/vue'
-
-const HomeView = defineAsyncComponent(() => import('@/views/HomeView.vue'))
+// import { SpeedInsights } from '@vercel/speed-insights/vue'
+import HeaderComponent from '@/components/HeaderComponent.vue'
 </script>
 
 <template>
-  <SpeedInsights />
+  <!-- <SpeedInsights /> -->
+  <HeaderComponent />
   <Suspense>
     <template #default>
       <div class="min-h-[700px]">
-        <HomeView />
+        <RouterView />
       </div>
     </template>
     <template #fallback>

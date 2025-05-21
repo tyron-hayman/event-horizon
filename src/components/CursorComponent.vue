@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { motion, useMotionValue, useSpring } from 'motion-v'
-import { onMounted, onUnmounted } from 'vue'
+import { type Ref, onMounted, onUnmounted, ref } from 'vue'
 import { useCursorStore } from '@/stores/cursor'
 import { Pointer, MessageCircleHeart, Send } from 'lucide-vue-next'
 
+const cursorVis: Ref<boolean> = ref(true)
 const xPos = useMotionValue(0)
 const yPos = useMotionValue(0)
 const spring = { damping: 12, stiffness: 60, restDelta: 0.001 }
@@ -16,19 +17,34 @@ const updateMousePosition = (event: MouseEvent) => {
   yPos.set(event.clientY - 25)
 }
 
+const hideCursor = () => {
+  cursorVis.value = false
+}
+
+const showCursor = () => {
+  cursorVis.value = true
+}
+
 onMounted(() => {
   window.addEventListener('mousemove', updateMousePosition)
+  window.addEventListener('mouseleave', hideCursor)
+  window.addEventListener('mouseenter', showCursor)
 })
 
 onUnmounted(() => {
   window.removeEventListener('mousemove', updateMousePosition)
+  window.removeEventListener('mouseleave', hideCursor)
+  window.removeEventListener('mouseenter', showCursor)
 })
 </script>
 
 <template>
   <motion.div
-    class="fixed items-center justify-center left-0 top-0 z-[90] block w-[50px] h-[50px] rounded-full pointer-events-none hidden xl:flex transition-[width] transition-[height]"
-    :class="cursorStore.stauts ? 'bg-blue-600' : 'border-blue-500 border-2 border-dashed'"
+    class="fixed items-center justify-center left-0 top-0 z-[95] w-[50px] h-[50px] block rounded-full pointer-events-none hidden xl:flex transition-[width] transition-[height]"
+    :class="[
+      cursorStore.stauts ? 'bg-blue-600' : 'border-blue-500 border-2 border-dashed',
+      cursorVis ? 'opacity-100' : 'opacity-0',
+    ]"
     :style="{ x, y }"
     :transition="{ type: 'spring', velocity: 2 }"
   >
