@@ -61,7 +61,7 @@ const animateSequence = () => {
 
 // Start the animation loop
 onMounted(() => {
-  animationInterval = setInterval(animateSequence, 3000)
+  animationInterval = window.setInterval(animateSequence, 3000)
 })
 
 // Cleanup interval on component unmount
