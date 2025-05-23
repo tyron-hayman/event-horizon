@@ -1,11 +1,9 @@
 <script setup lang="ts">
 // import { SpeedInsights } from '@vercel/speed-insights/vue'
-import HeaderComponent from '@/components/HeaderComponent.vue'
 </script>
 
 <template>
   <!-- <SpeedInsights /> -->
-  <HeaderComponent />
   <Suspense>
     <template #default>
       <div class="min-h-[700px]">

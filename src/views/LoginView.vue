@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import CursorComponent from '@/components/CursorComponent.vue'
+import HeaderComponent from '@/components/HeaderComponent.vue'
 import LoginForm from '@/components/login/LoginForm.vue'
 import FooterComponent from '@/components/FooterComponent.vue'
 </script>
@@ -7,6 +8,7 @@ import FooterComponent from '@/components/FooterComponent.vue'
 <template>
   <div class="w-full">
     <CursorComponent />
+    <HeaderComponent />
     <LoginForm title="Client Portal" />
     <FooterComponent
       title="Let's Talk."

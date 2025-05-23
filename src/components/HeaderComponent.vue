@@ -3,10 +3,6 @@ import { useCursorStore } from '@/stores/cursor'
 import { RouterLink } from 'vue-router'
 
 const cursorStore = useCursorStore()
-
-// const handleLogin = () => {
-
-// }
 </script>
 
 <template>

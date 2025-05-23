@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import CursorComponent from '@/components/CursorComponent.vue'
+import HeaderComponent from '@/components/HeaderComponent.vue'
 import HeroComponent from '@/components/HeroComponent.vue'
 import WorkComponent from '@/components/WorkComponent.vue'
 import AboutComponent from '@/components/AboutComponent.vue'
@@ -11,6 +12,7 @@ import FooterComponent from '@/components/FooterComponent.vue'
 <template>
   <div class="w-full">
     <CursorComponent />
+    <HeaderComponent />
     <HeroComponent
       title="A Web Developer Passionate About User Experience."
       subtitle="My Name Is Tyron"
