@@ -1,5 +1,5 @@
-import supabase from '@/utils/supabase/supabase'
 import type { User } from '@supabase/supabase-js'
+import { supabase } from '@/utils/supabase/supabase'
 
 const login = async (email: string, pass: string): Promise<'failed' | 'success' | undefined> => {
   try {

@@ -4,26 +4,30 @@ import CursorComponent from '@/components/CursorComponent.vue'
 import FooterComponent from '@/components/FooterComponent.vue'
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { getUser } from '@/utils/supabase/actions'
 import GlobalLoader from '@/components/GlobalLoader.vue'
+import { getUser } from '@/utils/supabase/actions'
+import type { User } from '@supabase/supabase-js'
 
 const router = useRouter()
 const loading = ref<boolean>(true)
+const userData = ref<User>()
 
 onMounted(() => {
   loadUser()
 })
 
 const loadUser = async () => {
+  loading.value = true
   try {
     const user = await getUser()
     if (user) {
-      console.log(user)
+      userData.value = user
+      console.log(userData.value)
     } else {
       router.push('/login')
     }
-  } catch {
-    alert('An error occured, please try again later')
+  } catch (e) {
+    console.error(e)
   } finally {
     loading.value = false
   }
