@@ -1,24 +1,22 @@
 <script setup lang="ts">
 import { motion } from 'motion-v'
-import workData from '@/assets/data/projects.json'
 import { ref } from 'vue'
 import type { Ref } from 'vue'
 import { CircleX, CirclePlus } from 'lucide-vue-next'
 import { useCursorStore } from '@/stores/cursor'
 
-defineProps<{
+const props = defineProps<{
   title?: string
+  data?: Array<{
+    Image: { asset: { url: string } }
+    company: string
+    desc: string
+    link: string
+    tech: []
+    title: string
+  }>
 }>()
 
-const projectData: Array<{
-  name: string
-  date: string
-  tech: string[]
-  company: string
-  content: string
-  link: string
-  image: string
-}> = workData.projects
 const activePro: Ref = ref(0)
 const modalOpen: Ref = ref(false)
 const modalChildOpen: Ref = ref(false)
@@ -60,11 +58,13 @@ const openModal = (index: number) => {
     modalChildOpen.value = true
   }, 250)
 }
+
+console.log(props.data)
 </script>
 
 <template>
   <div class="w-full px-5 py-20 md:px-10 xl:px-0 md:py-40 flex justify-center min-h-[700px]">
-    <div v-if="projectData" class="container">
+    <div v-if="data" class="container">
       <motion.h2
         class="text-white text-3xl md:text-6xl font-normal block pb-10 md:pb-20"
         :variants="variants"
@@ -76,8 +76,8 @@ const openModal = (index: number) => {
       <div class="w-full flex gap-2 lg:gap-4 flex-wrap xl:flex-nowrap">
         <motion.div
           class="w-full md:!mb-10 xl:!mb-0 lg:grow xl:w-3/12 hover:xl:w-5/12 rounded-3xl bg-slate-500 p-10 h-[600px] relative overflow-hidden cursor-pointer opacity-0 transition-[width] duration-500"
-          v-for="(project, index) in projectData"
-          :key="project.name"
+          v-for="(project, index) in data"
+          :key="project.title"
           :variants="proVariants"
           :custom="index"
           initial="hidden"
@@ -89,7 +89,7 @@ const openModal = (index: number) => {
         >
           <div
             class="absolute inset-0 z-[1] !bg-cover scale-125 rotate-10"
-            :style="{ background: `url(${project.image}) left top no-repeat` }"
+            :style="{ background: `url(${project.Image?.asset.url}) left top no-repeat` }"
           ></div>
           <CirclePlus
             class="absolute bottom-5 right-5 z-[20] cursor-pointer block z-[5]"
@@ -100,7 +100,7 @@ const openModal = (index: number) => {
             class="bg-linear-to-b from-white to-white/0 p-10 from-50% absolute inset-x-0 top-0 z-[2]"
           >
             <h4 class="text-neutral-500 text-xl font-normal">{{ project.company }}</h4>
-            <h3 class="text-neutral-900 text-3xl font-normal">{{ project.name }}</h3>
+            <h3 class="text-neutral-900 text-3xl font-normal">{{ project.title }}</h3>
           </div>
         </motion.div>
       </div>
@@ -121,13 +121,13 @@ const openModal = (index: number) => {
       />
       <div
         class="w-full"
-        v-for="(project, index) in projectData"
+        v-for="(project, index) in data"
         :class="activePro == index ? 'block' : 'hidden'"
-        :key="`sub${project.name}`"
+        :key="`sub${project.company}`"
       >
         <h4 class="text-gray-500 text-xl font-normal">{{ project.company }}</h4>
-        <h3 class="text-white text-3xl font-normal pb-5">{{ project.name }}</h3>
-        <p class="text-white text-lg leading-loose">{{ project.content }}</p>
+        <h3 class="text-white text-3xl font-normal pb-5">{{ project.title }}</h3>
+        <p class="text-white text-lg leading-loose">{{ project.desc }}</p>
         <p class="text-lg text-gray-500 pt-5">Tech Used</p>
         <ul class="flex gap-2 pt-2 pb-10 flex-wrap md:flex-nowrap">
           <li

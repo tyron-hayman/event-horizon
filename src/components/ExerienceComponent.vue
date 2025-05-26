@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { motion } from 'motion-v'
-import expData from '@/assets/data/experience.json'
 
 defineProps<{
   title?: string
+  data?: Array<{ company: string; role: string; date: string }>
 }>()
 
 const variants = {
@@ -27,9 +27,9 @@ const variants = {
         :inViewOptions="{ once: true, amount: 'all' }"
         >{{ title }}</motion.h2
       >
-      <div v-if="expData.experience.length" class="w-full">
+      <div v-if="data" class="w-full">
         <motion.div
-          v-for="(exp, index) in expData.experience"
+          v-for="(exp, index) in data"
           class="md:flex items-center border-t-1 border-t-white/10 border-t-solid w-full py-10"
           :key="`experience${index}`"
           :variants="variants"

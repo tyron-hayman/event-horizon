@@ -3,11 +3,12 @@ import { motion } from 'motion-v'
 import type { Ref } from 'vue'
 import { ref, onMounted, onUnmounted } from 'vue'
 import { ArrowDown } from 'lucide-vue-next'
+import { type SanityImageData, type SanityImageAsset } from '@/utils/sanity/sanity'
 
 const props = defineProps<{
   title?: string
   subtitle?: string
-  image?: string
+  image?: (SanityImageData & { asset?: SanityImageAsset | undefined }) | undefined
 }>()
 const heroRef: Ref = ref(null)
 // const { scrollYProgress } = useScroll({
@@ -75,7 +76,7 @@ onUnmounted(() => {
 <template>
   <motion.div
     ref="heroRef"
-    class="w-full relative px-5 pt-20 md:pt-0 md:px-10 xl:p-0 flex items-center justify-center h-screen min-h-[700px]"
+    class="w-full relative px-5 pt-20 md:pt-0 md:px-10 xl:p-0 md:flex items-center justify-center md:h-screen md:min-h-[700px]"
   >
     <div class="container">
       <div class="flex items-center pb-5 w-full">
@@ -85,7 +86,7 @@ onUnmounted(() => {
           animate="visible"
           :variants="variants"
         >
-          <img :src="image" width="100" height="100" alt="My Avatar" />
+          <img :src="image?.asset.url" width="100" height="100" alt="My Avatar" />
         </motion.div>
         <div class="pl-5 w-1/2">
           <h3 class="text-2xl md:text-5xl font-normal text-white w-full">

@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import { motion } from 'motion-v'
-import expData from '@/assets/data/testimonials.json'
 import { useCursorStore } from '@/stores/cursor'
 
 defineProps<{
   title?: string
+  data?: Array<{
+    name: string
+    content: string
+    Image: { asset: { url: string } }
+    company: string
+  }>
 }>()
 
 const cursorStore = useCursorStore()
@@ -42,10 +47,10 @@ const testVariants = {
         :inViewOptions="{ once: true, amount: 0.5 }"
         >{{ title }}</motion.h2
       >
-      <div v-if="expData.testimonials.length">
+      <div v-if="data">
         <div class="lg:grid lg:grid-cols-2 lg:gap-10">
           <motion.div
-            v-for="(exp, index) in expData.testimonials"
+            v-for="(exp, index) in data"
             :key="`test${index}`"
             class="border-1 border-white/10 border-solid rounded-3xl p-10 w-full md:w-auto !mb-10 lg:!mb-0 opacity-0 block"
             :class="index == 0 ? 'col-span-2' : ''"
@@ -60,12 +65,12 @@ const testVariants = {
             <div class="flex items-center">
               <div
                 class="!bg-cover w-[75px] h-[75px] rounded-full grayscale !mr-5 border-1 border-white border-solid"
-                :style="{ background: `url(${exp.image}) center center no-repeat` }"
+                :style="{ background: `url(${exp.Image.asset.url}) center center no-repeat` }"
               ></div>
               <h3 class="text-white text-4xl font-normal">{{ exp.name }}</h3>
             </div>
             <p class="text-neutral-500 text-lg leading-loose py-5">{{ exp.content }}</p>
-            <p class="text-white text-lg">{{ exp.role }}</p>
+            <p class="text-white text-lg">{{ exp.company }}</p>
           </motion.div>
         </div>
       </div>
