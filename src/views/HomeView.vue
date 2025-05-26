@@ -40,7 +40,7 @@ onMounted(() => {
         title="Let's Talk."
         email="hello@tyronhayman.me"
         footerContentLeft="Design & Developed in "
-        footerContentRight="Crafted using Vue 3, Pinia & Lucide"
+        footerContentRight="Crafted using Vue 3, Pinia, Sanity & Lucide"
       />
     </div>
   </div>

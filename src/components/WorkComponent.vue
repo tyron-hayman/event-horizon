@@ -5,7 +5,7 @@ import type { Ref } from 'vue'
 import { CircleX, CirclePlus } from 'lucide-vue-next'
 import { useCursorStore } from '@/stores/cursor'
 
-const props = defineProps<{
+defineProps<{
   title?: string
   data?: Array<{
     Image: { asset: { url: string } }
@@ -58,8 +58,6 @@ const openModal = (index: number) => {
     modalChildOpen.value = true
   }, 250)
 }
-
-console.log(props.data)
 </script>
 
 <template>
