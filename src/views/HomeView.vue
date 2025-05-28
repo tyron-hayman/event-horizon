@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
 import { homepageStore } from '@/stores/sanity'
 import HeroComponent from '@/components/HeroComponent.vue'
 import WorkComponent from '@/components/WorkComponent.vue'
@@ -9,10 +8,6 @@ import TestimonialsComponent from '@/components/TestimonialsComponent.vue'
 import FooterComponent from '@/components/FooterComponent.vue'
 
 const homeStore = homepageStore()
-
-onMounted(async () => {
-  homeStore.fetchSettings()
-})
 </script>
 
 <template>

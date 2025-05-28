@@ -1,10 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { SpeedInsights } from '@vercel/speed-insights/vue'
 import CursorComponent from '@/components/CursorComponent.vue'
 import { LoaderCircle } from 'lucide-vue-next'
+import { homepageStore } from '@/stores/sanity'
+import { workStore } from '@/stores/work'
 
 const active = ref<boolean>(true)
+const homeStore = homepageStore()
+const workpageStore = workStore()
 
 const onBeforeEnter = () => {
   active.value = true
@@ -23,6 +27,11 @@ const onLeave = (el: Element, done: () => void) => {
     done()
   }, 750)
 }
+
+onMounted(async () => {
+  await homeStore.fetchSettings()
+  await workpageStore.fetchWork()
+})
 </script>
 
 <template>
