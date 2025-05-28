@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import router from '@/router'
 import { LoaderCircle } from 'lucide-vue-next'
 
-const isActive = ref<boolean>(false)
+const isActive = ref<boolean>(true)
 
 router.beforeEach((to, from, next) => {
   isActive.value = true
@@ -13,6 +13,10 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach(async () => {
+  isActive.value = false
+})
+
+onMounted(() => {
   isActive.value = false
 })
 </script>
