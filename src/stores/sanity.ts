@@ -12,13 +12,16 @@ export interface SiteSettings {
   about_Content: string
   testimonials: any[] // Assuming testimonials will be an array of references, adjust type as needed
   exp_title: string
-  experience: any[] //
+  experience: any[]
+  footer_title: string
+  footer_email: string
 }
 
 // 2. Define the type for the store's state
 interface SettingsState {
   data: SiteSettings | null
   loading: boolean
+  loadComplete: boolean
   error: Error | null
 }
 
@@ -26,9 +29,16 @@ export const homepageStore = defineStore('homepage', {
   state: (): SettingsState => ({
     data: null,
     loading: false,
+    loadComplete: false,
     error: null,
   }),
   actions: {
+    completeLoading(): void {
+      this.loadComplete = true
+    },
+    completeLoadingInit(): void {
+      this.loadComplete = false
+    },
     async fetchSettings(): Promise<void> {
       if (this.loading) {
         // Prevent concurrent fetches
@@ -97,7 +107,9 @@ export const homepageStore = defineStore('homepage', {
             company,
             role,
             date,
-          }
+          },
+          footer_title,
+          footer_email
         }`
         // Explicitly cast the fetched data to SiteSettings
         const fetchedData = await sanityClient.fetch<SiteSettings>(query)
@@ -136,6 +148,15 @@ export const homepageStore = defineStore('homepage', {
     },
     siteTestimonials(state): any[] | undefined {
       return state.data?.testimonials
+    },
+    siteFooterTitle(state): string | undefined {
+      return state.data?.footer_title
+    },
+    siteFooterEmail(state): string | undefined {
+      return state.data?.footer_email
+    },
+    isLoadingComplete(state): boolean {
+      return state.loadComplete
     },
     isLoading(state): boolean {
       return state.loading

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { motion } from 'motion-v'
-import { ref } from 'vue'
-import type { Ref } from 'vue'
-import { CircleX, CirclePlus } from 'lucide-vue-next'
+import { CirclePlus } from 'lucide-vue-next'
 import { useCursorStore } from '@/stores/cursor'
+import { useRouter } from 'vue-router'
 
 defineProps<{
   title?: string
   data?: Array<{
+    _id: string
     Image: { asset: { url: string } }
     company: string
     desc: string
@@ -17,10 +17,8 @@ defineProps<{
   }>
 }>()
 
-const activePro: Ref = ref(0)
-const modalOpen: Ref = ref(false)
-const modalChildOpen: Ref = ref(false)
 const cursorStore = useCursorStore()
+const router = useRouter()
 
 const variants = {
   hidden: { opacity: 0, y: 50 },
@@ -44,19 +42,9 @@ const proVariants = {
   }),
 }
 
-const handleModalClose = () => {
-  modalChildOpen.value = false
-  setTimeout(() => {
-    modalOpen.value = false
-  }, 250)
-}
-
-const openModal = (index: number) => {
-  activePro.value = index
-  modalOpen.value = true
-  setTimeout(() => {
-    modalChildOpen.value = true
-  }, 250)
+const openProject = (id: string) => {
+  console.log(id)
+  router.push(`/work/${id}`)
 }
 </script>
 
@@ -81,7 +69,7 @@ const openModal = (index: number) => {
           initial="hidden"
           whileInView="visible"
           :inViewOptions="{ once: true, amount: 0.25 }"
-          @click="openModal(index)"
+          @click="openProject(project._id)"
           @mouseover="cursorStore.hovered"
           @mouseleave="cursorStore.notHovered"
         >
@@ -92,7 +80,6 @@ const openModal = (index: number) => {
           <CirclePlus
             class="absolute bottom-5 right-5 z-[20] cursor-pointer block z-[5]"
             color="#333333"
-            @click="handleModalClose"
           />
           <div
             class="bg-linear-to-b from-white to-white/0 p-10 from-50% absolute inset-x-0 top-0 z-[2]"
@@ -104,45 +91,4 @@ const openModal = (index: number) => {
       </div>
     </div>
   </div>
-  <motion.div
-    class="fixed flex items-center justify-center z-[10] inset-0 bg-neutral-900/60 backdrop-blur-md overflow-hidden"
-    :animate="modalOpen ? { opacity: 1, display: 'flex' } : { opacity: 0, display: 'none' }"
-  >
-    <motion.div
-      class="w-full h-screen lg:w-10/12 xl:w-1/2 md:h-auto rounded-3xl bg-neutral-800 p-10 md:p-20 relative opacity-0"
-      :animate="modalChildOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: 300 }"
-    >
-      <CircleX
-        class="absolute top-10 right-10 z-[20] cursor-pointer block z-[5]"
-        color="#ffffff"
-        @click="handleModalClose"
-      />
-      <div
-        class="w-full"
-        v-for="(project, index) in data"
-        :class="activePro == index ? 'block' : 'hidden'"
-        :key="`sub${project.company}`"
-      >
-        <h4 class="text-gray-500 text-xl font-normal">{{ project.company }}</h4>
-        <h3 class="text-white text-3xl font-normal pb-5">{{ project.title }}</h3>
-        <p class="text-white text-lg leading-loose">{{ project.desc }}</p>
-        <p class="text-lg text-gray-500 pt-5">Tech Used</p>
-        <ul class="flex gap-2 pt-2 pb-10 flex-wrap md:flex-nowrap">
-          <li
-            class="rounded-full border-gray-500 border-1 border-solid text-gray-500 text-sm px-4 py-1"
-            v-for="tech in project.tech"
-            :key="`sub${tech}`"
-          >
-            {{ tech }}
-          </li>
-        </ul>
-        <a
-          :href="project.link"
-          target="_blank"
-          class="bg-blue-500 text-lg px-4 py-1 text-white hover:bg-neutral-800 rounded-3xl transition-all duration-500"
-          >View Live Site</a
-        >
-      </div>
-    </motion.div>
-  </motion.div>
 </template>

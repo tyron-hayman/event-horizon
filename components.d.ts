@@ -26,6 +26,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     TestimonialsComponent: typeof import('./src/components/TestimonialsComponent.vue')['default']
     TheWelcome: typeof import('./src/components/TheWelcome.vue')['default']
+    TransitionComponent: typeof import('./src/components/TransitionComponent.vue')['default']
     WelcomeItem: typeof import('./src/components/WelcomeItem.vue')['default']
     WorkComponent: typeof import('./src/components/WorkComponent.vue')['default']
   }
