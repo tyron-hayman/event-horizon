@@ -43,7 +43,6 @@ const proVariants = {
 }
 
 const openProject = (id: string) => {
-  console.log(id)
   router.push(`/work/${id}`)
 }
 </script>

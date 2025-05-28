@@ -4,7 +4,11 @@ import WorkView from '@/views/WorkView.vue'
 
 const router = createRouter({
   scrollBehavior() {
-    return { top: 0 }
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({ left: 0, top: 0 })
+      }, 500)
+    })
   },
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [

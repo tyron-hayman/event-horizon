@@ -1,28 +1,19 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import sanityClient, { type SanityImageData, type SanityImageAsset } from '@/utils/sanity/sanity'
 import { useRoute, useRouter } from 'vue-router'
 import { motion } from 'motion-v'
 import { homepageStore } from '@/stores/sanity'
+import { type ProjectData, workStore } from '@/stores/work'
 import { useCursorStore } from '@/stores/cursor'
 import { CircleArrowLeft } from 'lucide-vue-next'
 
-interface ProjectData {
-  _id: string
-  title: string
-  company: string
-  Image: (SanityImageData & { asset?: SanityImageAsset }) | undefined
-  desc: string
-  role: string
-  tech: Array<string>
-  link: string
-}
-
-const projectData = ref<Array<ProjectData> | null>(null)
 const route = useRoute()
 const router = useRouter()
 const homeStore = homepageStore()
 const cursorStore = useCursorStore()
+const workpageStore = workStore()
+const proData = ref<ProjectData | null | undefined>(null)
+const pro_id = route.params.id
 
 const variants = {
   hidden: { opacity: 0, y: 50 },
@@ -33,56 +24,35 @@ const variants = {
   },
 }
 
-onMounted(() => {
-  if (!route.params.id) {
+onMounted(async () => {
+  if (!pro_id) {
     router.push('/')
   } else {
     homeStore.completeLoadingInit()
-    fetchProData(route.params.id as string)
-    homeStore.fetchSettings()
+    await homeStore.fetchSettings()
+    await workpageStore.fetchWork()
+    proData.value = setProData(pro_id as string)
   }
 })
 
-const fetchProData = async (id: string): Promise<void> => {
-  try {
-    const query = `*[_type == "work" && _id == "${id}" ]{
-            _id,
-            title,
-            desc,
-            Image {
-              asset->{
-                _id,
-                url,
-                metadata {
-                  lqip
-                }
-              },
-              alt
-            },
-            company,
-            role,
-            tech,
-            link
-        }`
-    const fetchedData = await sanityClient.fetch<ProjectData[]>(query)
-    projectData.value = fetchedData
-    console.log(fetchedData)
-  } catch {
-    console.error('A fatal error occured fetching this project.')
-  } finally {
-    homeStore.completeLoading()
-  }
-}
-
 const goBack = () => {
   router.push(`/`)
+}
+
+const setProData = (id: string): ProjectData | null | undefined => {
+  if (workpageStore.proData) {
+    const response = workpageStore.proData.find((o) => o._id === id)
+    return response
+  } else {
+    return null
+  }
 }
 </script>
 
 <template>
   <div class="w-full">
     <div class="w-full flex justify-center px-5 md:px-10 xl:px-0 min-h-[700px]">
-      <div v-if="projectData && homeStore.loadComplete" class="container !mt-10 md:!mt-40">
+      <div v-if="proData" class="container !mt-10 md:!mt-40">
         <div @click="goBack">
           <CircleArrowLeft
             class="text-3xl text-white !mb-10 inline-block cursor-pointer"
@@ -96,7 +66,7 @@ const goBack = () => {
           initial="hidden"
           whileInView="visible"
           :inViewOptions="{ once: true, amount: 'all' }"
-          >{{ projectData[0].title }}</motion.h1
+          >{{ proData.title }}</motion.h1
         >
         <div class="w-full md:flex justify-between !mt-10 md:!mt-20">
           <motion.div
@@ -107,15 +77,13 @@ const goBack = () => {
             :inViewOptions="{ once: true, amount: 'some' }"
           >
             <p class="text-white text-lg">
-              <strong class="text-white/50 block uppercase">Agency:</strong
-              >{{ projectData[0].company }}
+              <strong class="text-white/50 block uppercase">Agency:</strong>{{ proData.company }}
             </p>
             <p class="text-white text-lg">
-              <strong class="text-white/50 block uppercase">Client:</strong
-              >{{ projectData[0].title }}
+              <strong class="text-white/50 block uppercase">Client:</strong>{{ proData.title }}
             </p>
             <p class="text-white text-lg">
-              <strong class="text-white/50 block uppercase">Role:</strong>{{ projectData[0].role }}
+              <strong class="text-white/50 block uppercase">Role:</strong>{{ proData.role }}
             </p>
           </motion.div>
           <motion.div
@@ -126,15 +94,15 @@ const goBack = () => {
             :inViewOptions="{ once: true, amount: 'some' }"
           >
             <img
-              v-if="projectData[0].Image"
+              v-if="proData.Image"
               class="w-full aspect-video rounded-3xl !mb-10"
-              :src="projectData[0].Image.asset.url"
-              :alt="projectData[0].Image.alt"
+              :src="proData.Image.asset.url"
+              :alt="proData.Image.alt"
             />
-            <p class="text-white text-xl leading-relaxed !mb-10">{{ projectData[0].desc }}</p>
+            <p class="text-white text-xl leading-relaxed !mb-10">{{ proData.desc }}</p>
             <a
               class="inline-block rounded-full bg-white text-black text-2xl px-10 py-4"
-              :href="projectData[0].link"
+              :href="proData.link"
               target="_blank"
               @mouseover="cursorStore.hovered"
               @mouseleave="cursorStore.notHovered"
