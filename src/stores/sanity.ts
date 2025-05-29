@@ -4,6 +4,11 @@ import { defineStore } from 'pinia'
 import sanityClient, { type SanityImageData, type SanityImageAsset } from '@/utils/sanity/sanity'
 
 // 1. Define the type for your site settings data
+export interface Service {
+  title: string
+  desc: string
+}
+
 export interface SiteSettings {
   hero_text: string
   Avatar?: SanityImageData & { asset?: SanityImageAsset } // logo field, with optional dereferenced asset
@@ -11,6 +16,7 @@ export interface SiteSettings {
   about_title: string
   about_Content: string
   testimonials: any[] // Assuming testimonials will be an array of references, adjust type as needed
+  home_services: Array<Service>
   exp_title: string
   experience: any[]
   footer_title: string
@@ -101,6 +107,11 @@ export const homepageStore = defineStore('homepage', {
           },
           company
           },
+          home_services[]->{ // Dereference experience
+            _id,
+            title,
+            desc,
+          },
           exp_title,
           experience[]->{ // Dereference experience
             _id,
@@ -139,6 +150,9 @@ export const homepageStore = defineStore('homepage', {
     },
     siteAboutContent(state): string | undefined {
       return state.data?.about_Content
+    },
+    siteServices(state): Array<Service> | undefined {
+      return state.data?.home_services
     },
     siteExperienceTitle(state): string | undefined {
       return state.data?.exp_title

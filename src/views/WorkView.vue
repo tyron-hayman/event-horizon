@@ -29,6 +29,12 @@ onMounted(async () => {
     router.push('/')
   } else {
     homeStore.completeLoadingInit()
+    if (!homeStore.fetchSettings) {
+      await homeStore.fetchSettings
+    }
+    if (!workpageStore.proData) {
+      await workpageStore.fetchWork()
+    }
     proData.value = setProData(pro_id as string)
   }
 })
