@@ -2,7 +2,7 @@
 import { motion } from 'motion-v'
 import { type Service } from '@/stores/sanity'
 
-const props = defineProps<{
+defineProps<{
   title?: string
   data: Array<Service> | undefined
 }>()
@@ -28,8 +28,6 @@ const serviceVariants = {
     },
   }),
 }
-
-console.log(props.data)
 </script>
 
 <template>
