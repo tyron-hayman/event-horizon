@@ -15,10 +15,12 @@ const onBeforeEnter = () => {
 }
 
 const onEnter = (el: Element, done: () => void) => {
-  active.value = false
-  setTimeout(() => {
-    done()
-  }, 750)
+  if (!homeStore.isLoading) {
+    active.value = false
+    setTimeout(() => {
+      done()
+    }, 750)
+  }
 }
 
 const onLeave = (el: Element, done: () => void) => {
@@ -31,6 +33,9 @@ const onLeave = (el: Element, done: () => void) => {
 onMounted(async () => {
   await homeStore.fetchSettings()
   await workpageStore.fetchWork()
+  if (!homeStore.isLoading) {
+    active.value = false
+  }
 })
 </script>
 
