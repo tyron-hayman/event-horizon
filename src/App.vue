@@ -2,7 +2,6 @@
 import { ref, onMounted } from 'vue'
 import { SpeedInsights } from '@vercel/speed-insights/vue'
 import CursorComponent from '@/components/CursorComponent.vue'
-import { LoaderCircle } from 'lucide-vue-next'
 import { homepageStore } from '@/stores/sanity'
 import { workStore } from '@/stores/work'
 
@@ -43,14 +42,14 @@ onMounted(async () => {
   <SpeedInsights />
   <CursorComponent />
   <div
-    class="fixed inset-x-0 top-0 bg-white z-[99] transition-all duration-700"
+    class="fixed inset-x-0 top-0 bg-stone-900 z-[99] transition-all duration-700"
     :class="active ? 'h-[100vh]' : 'h-[0vh]'"
   ></div>
   <div
     class="fixed inset-x-0 top-0 bg-black z-[100] transition-all duration-300 flex items-center justify-center overflow-hidden"
     :class="active ? 'h-[100vh]' : 'h-[0vh]'"
   >
-    <p class="text-white text-lg animate-spin"><LoaderCircle /></p>
+    <p class="text-white text-3xl animate-pulse">Tidying things up....</p>
   </div>
   <router-view v-slot="{ Component, route }">
     <transition mode="out-in" @before-enter="onBeforeEnter" @enter="onEnter" @leave="onLeave">

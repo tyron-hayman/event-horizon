@@ -27,7 +27,9 @@ const variants = {
 </script>
 
 <template>
-  <div class="w-full px-5 py-20 md:px-10 xl:px-0 md:pt-60 md:pb-20 flex flex-wrap justify-center">
+  <div
+    class="w-full px-5 py-20 md:px-10 xl:px-0 md:pt-60 md:pb-20 flex flex-wrap justify-center contactContainer"
+  >
     <div class="container">
       <motion.h2
         class="text-neutral-700 text-6xl md:text-8xl xl:text-[10vw] font-normal block"

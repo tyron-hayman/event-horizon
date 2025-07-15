@@ -52,7 +52,7 @@ const testVariants = {
           <motion.div
             v-for="(exp, index) in data"
             :key="`test${index}`"
-            class="border-1 border-white/10 border-solid rounded-3xl p-10 w-full md:w-auto !mb-10 lg:!mb-0 opacity-0 block"
+            class="bg-black rounded-3xl p-10 w-full md:w-auto !mb-10 lg:!mb-0 opacity-0 block"
             :class="index == 0 ? 'col-span-2' : ''"
             :variants="testVariants"
             :custom="index"

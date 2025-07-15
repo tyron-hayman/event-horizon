@@ -55,7 +55,8 @@ const setProData = (id: string): ProjectData | null | undefined => {
 
 <template>
   <div class="w-full">
-    <div class="w-full flex justify-center px-5 md:px-10 xl:px-0 min-h-[700px]">
+    <HomeScene />
+    <div class="w-full relative z-[1] flex justify-center px-5 md:px-10 xl:px-0 min-h-[700px]">
       <div v-if="proData" class="container !mt-10 md:!mt-40">
         <div @click="goBack">
           <CircleArrowLeft

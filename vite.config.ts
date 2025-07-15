@@ -1,5 +1,5 @@
 import { fileURLToPath, URL } from 'node:url'
-
+import { templateCompilerOptions } from '@tresjs/core'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -11,20 +11,21 @@ import MotionResolver from 'motion-v/resolver'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    vue(),
+    vue({
+      // Other config
+      ...templateCompilerOptions,
+    }),
     vueJsx(),
     vueDevTools(),
     tailwindcss(),
     Components({
       dts: true,
-      resolvers: [
-        MotionResolver()
-      ],
+      resolvers: [MotionResolver()],
     }),
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
 })

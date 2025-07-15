@@ -31,10 +31,10 @@ const serviceVariants = {
 </script>
 
 <template>
-  <div class="w-full px-5 py-20 md:px-10 xl:px-0 md:pt-60 md:pb-20">
+  <div class="w-full px-5 py-20 md:px-10 xl:px-0 md:pt-60 md:pb-20 serviceContainer">
     <div class="container !mx-auto">
       <motion.h2
-        class="block text-white text-center text-6xl md:text-8xl xl:text-[5vw] md:text-[15vw] xl:text-[7vw] leading-[25vw] md:leading-[6vw] w-full pb-10 xl:pb-0"
+        class="block text-white text-center text-6xl md:text-8xl xl:text-[5vw] md:text-[15vw] xl:text-[7vw] leading-[25vw] md:leading-[15vw] w-full pb-10 xl:pb-0"
         :variants="variants"
         initial="hidden"
         whileInView="visible"
@@ -47,15 +47,19 @@ const serviceVariants = {
         <motion.div
           v-for="(service, index) in data"
           :key="`service${index}`"
-          class="rounded-3xl border-neutral-800 border-2 border-solid p-10"
+          class="rounded-3xl bg-black p-10"
           :variants="serviceVariants"
           :custom="index"
           initial="hidden"
           whileInView="visible"
           :inViewOptions="{ once: true, amount: 0.25 }"
         >
-          <h3 class="text-white text-4xl !mb-10">{{ service.title }}</h3>
-          <p class="text-neutral-500 text-lg leading-relaxed">{{ service.desc }}</p>
+          <div class="!mb-10">
+            <h3 class="text-white text-4xl md:text-6xl !font-black block w-full">
+              {{ service.title }}
+            </h3>
+          </div>
+          <p class="text-neutral-500 text-xl leading-relaxed">{{ service.desc }}</p>
         </motion.div>
       </div>
     </div>

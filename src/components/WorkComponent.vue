@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { motion } from 'motion-v'
-import { CirclePlus } from 'lucide-vue-next'
+import { motion, useTransform, useScroll } from 'motion-v'
+import { ArrowUpRight } from 'lucide-vue-next'
 import { useCursorStore } from '@/stores/cursor'
 import { useRouter } from 'vue-router'
+import { ref } from 'vue'
+import { Dot } from 'lucide-vue-next'
 
 defineProps<{
   title?: string
@@ -17,8 +19,29 @@ defineProps<{
   }>
 }>()
 
+const brands: Array<string> = [
+  'Nike',
+  'Hungerford Properties',
+  'Onni',
+  'McDonalds',
+  'Disney',
+  'LottoMax',
+  'EVO',
+  'Axis Realestate',
+  '131 Water',
+]
+
+const containerRef = ref(null)
 const cursorStore = useCursorStore()
 const router = useRouter()
+const { scrollYProgress } = useScroll({
+  target: containerRef,
+  offset: ['start start', '400px'],
+})
+const scale = useTransform(scrollYProgress, [0, 1], [1, 0.3])
+const opacity = useTransform(scrollYProgress, [0, 1], [1, 0])
+const y = useTransform(scrollYProgress, [0, 1], ['0px', '40px'])
+const blur = useTransform(scrollYProgress, [0, 1], ['blur(0px)', 'blur(20px)'])
 
 const variants = {
   hidden: { opacity: 0, y: 50 },
@@ -48,46 +71,72 @@ const openProject = (id: string) => {
 </script>
 
 <template>
-  <div class="w-full px-5 py-20 md:px-10 xl:px-0 md:py-40 flex justify-center min-h-[700px]">
-    <div v-if="data" class="container">
+  <div
+    class="w-full px-5 py-20 md:px-10 xl:px-0 md:py-40 flex justify-center min-h-[700px] workContainer"
+  >
+    <div v-if="data" ref="containerRef" class="container relative">
       <motion.h2
-        class="text-white text-3xl md:text-6xl font-normal block pb-10 md:pb-20"
+        class="text-white text-5xl md:text-8xl !font-light block pb-10 md:pb-20 uppercase sticky top-20 text-center relative"
+        :style="{ scale, y, filter: blur, opacity }"
         :variants="variants"
         initial="hidden"
         whileInView="visible"
         :inViewOptions="{ once: true, amount: 'all' }"
         >{{ title }}</motion.h2
       >
-      <div class="w-full flex gap-2 lg:gap-4 flex-wrap xl:flex-nowrap">
+      <div
+        class="w-full lg:grid grid-cols-[repeat(2,1fr)] gap-[10rem] items-start relative z-[1] cursor-pointer !mt-20"
+      >
         <motion.div
-          class="w-full md:!mb-10 xl:!mb-0 lg:grow xl:w-3/12 hover:xl:w-5/12 rounded-3xl bg-slate-500 p-10 h-[600px] relative overflow-hidden cursor-pointer opacity-0 transition-[width] duration-500"
+          class="!mb-20 md:!mb-0"
           v-for="(project, index) in data"
+          :class="index % 2 != 0 ? '!mt-50' : null"
           :key="project.title"
           :variants="proVariants"
           :custom="index"
           initial="hidden"
           whileInView="visible"
-          :inViewOptions="{ once: true, amount: 0.25 }"
+          :inViewOptions="{ once: true, amount: 0.1 }"
           @click="openProject(project._id)"
           @mouseover="cursorStore.hovered"
           @mouseleave="cursorStore.notHovered"
         >
           <div
-            class="absolute inset-0 z-[1] !bg-cover scale-125 rotate-10"
-            :style="{ background: `url(${project.Image?.asset.url}) left top no-repeat` }"
+            class="w-full aspect-square !bg-cover rounded-3xl !mb-10"
+            :style="{ background: `url(${project.Image?.asset.url}) center center no-repeat` }"
           ></div>
-          <CirclePlus
-            class="absolute bottom-5 right-5 z-[20] cursor-pointer block z-[5]"
-            color="#333333"
-          />
-          <div
-            class="bg-linear-to-b from-white to-white/0 p-10 from-50% absolute inset-x-0 top-0 z-[2]"
-          >
-            <h4 class="text-neutral-500 text-xl font-normal">{{ project.company }}</h4>
-            <h3 class="text-neutral-900 text-3xl font-normal">{{ project.title }}</h3>
-          </div>
+          <h2 class="text-white text-3xl md:text-5xl font-normal !mb-5 uppercase w-full">
+            {{ project.title }}<ArrowUpRight class="inline-block align-middle" :size="44" />
+          </h2>
+          <ul class="flex flex-wrap items-center gap-2">
+            <li
+              v-for="(tech, index) in project.tech"
+              :key="`tech${index}`"
+              class="text-white text-md bg-stone-900 py-1 px-4 rounded-full"
+            >
+              {{ tech }}
+            </li>
+          </ul>
         </motion.div>
       </div>
+    </div>
+  </div>
+  <div class="!pt-20 pb-40 overflow-hidden">
+    <h3 class="text-3xl text-white font-bold w-10/12 md:w-1/2 text-center !mx-auto !mb-40">
+      I've had the honor to work with some large companies while freelancing and during fulltime
+      employment.
+    </h3>
+    <div class="-rotate-5">
+      <Vue3Marquee :duration="40" :pauseOnHover="true">
+        <span
+          v-for="(brand, index) in brands"
+          :key="`brand${index}`"
+          class="text-4xl md:text-8xl text-white font-bold flex items-center"
+        >
+          <span class="bg-white text-black p-5">{{ brand }}</span
+          ><span class="px-10"><Dot :size="64" /></span>
+        </span>
+      </Vue3Marquee>
     </div>
   </div>
 </template>

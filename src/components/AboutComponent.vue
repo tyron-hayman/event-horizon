@@ -17,10 +17,12 @@ const variants = {
 </script>
 
 <template>
-  <div class="w-full px-5 py-20 md:px-10 xl:px-0 md:pt-40 md:pb-20 flex justify-center">
+  <div
+    class="w-full px-5 py-20 md:px-10 xl:px-0 md:pt-40 md:pb-20 flex justify-center aboutContainer"
+  >
     <div class="container flex flex-wrap xl:flex-nowrap justify-between">
       <motion.h2
-        class="text-white text-[25vw] md:text-[15vw] xl:text-[7vw] leading-[25vw] md:leading-[6vw] w-full xl:w-3/12 pb-10 xl:pb-0"
+        class="text-white !font-black text-[25vw] md:text-[13vw] xl:text-[6vw] leading-[25vw] md:leading-[6vw] w-full xl:w-3/12 pb-10 xl:pb-0"
         :variants="variants"
         initial="hidden"
         whileInView="visible"
