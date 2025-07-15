@@ -98,12 +98,6 @@ const setProData = (id: string): ProjectData | null | undefined => {
             whileInView="visible"
             :inViewOptions="{ once: true, amount: 'some' }"
           >
-            <img
-              v-if="proData.Image"
-              class="w-full aspect-video rounded-3xl !mb-10"
-              :src="proData.Image.asset.url"
-              :alt="proData.Image.alt"
-            />
             <p class="text-white text-xl leading-relaxed !mb-10">{{ proData.desc }}</p>
             <a
               class="inline-block rounded-full bg-white text-black text-2xl px-10 py-4"
