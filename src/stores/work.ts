@@ -7,6 +7,8 @@ export interface ProjectData {
   title: string
   company: string
   Image: (SanityImageData & { asset?: SanityImageAsset }) | undefined
+  website_Image: (SanityImageData & { asset?: SanityImageAsset }) | undefined
+  mobile_Image: (SanityImageData & { asset?: SanityImageAsset }) | undefined
   desc: string
   role: string
   tech: Array<string>
@@ -54,6 +56,26 @@ export const workStore = defineStore('workpage', {
             title,
             desc,
             Image {
+              asset->{
+                _id,
+                url,
+                metadata {
+                  lqip
+                }
+              },
+              alt
+            },
+            website_Image {
+              asset->{
+                _id,
+                url,
+                metadata {
+                  lqip
+                }
+              },
+              alt
+            },
+            mobile_Image {
               asset->{
                 _id,
                 url,

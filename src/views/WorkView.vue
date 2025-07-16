@@ -56,24 +56,26 @@ const setProData = (id: string): ProjectData | null | undefined => {
 <template>
   <div class="w-full">
     <HomeScene />
-    <div class="w-full relative z-[1] flex justify-center px-5 md:px-10 xl:px-0 min-h-[700px]">
-      <div v-if="proData" class="container !mt-10 md:!mt-40">
-        <div @click="goBack">
+    <div class="w-full relative z-[1] flex justify-center min-h-[700px]">
+      <div v-if="proData" class="w-full !mt-10 md:!mt-40 overflow-x-hidden">
+        <div class="container !mx-auto px-5 md:px-10 xl:px-0" @click="goBack">
           <CircleArrowLeft
             class="text-3xl text-white !mb-10 inline-block cursor-pointer"
             color="#ffffff"
             :size="40"
           />
         </div>
-        <motion.h1
-          class="text-white text-[10vw] leading-[9vw] block"
-          :variants="variants"
-          initial="hidden"
-          whileInView="visible"
-          :inViewOptions="{ once: true, amount: 'all' }"
-          >{{ proData.title }}</motion.h1
+        <Vue3Marquee :duration="40" class="overflow-y-hidden">
+          <h1 class="text-white text-8xl md:text-[10vw] leading-[1] block px-5">
+            {{ proData.title }}
+          </h1>
+          <h2 class="text-white text-8xl md:text-[10vw] leading-[1] block px-5">
+            {{ proData.title }}
+          </h2>
+        </Vue3Marquee>
+        <div
+          class="container !mx-auto md:flex justify-between !mt-10 md:!mt-20 px-5 md:px-10 xl:px-0"
         >
-        <div class="w-full md:flex justify-between !mt-10 md:!mt-20">
           <motion.div
             class="w-full md:w-3/12 !mb-10 md:!mb-0"
             :variants="variants"
@@ -81,15 +83,27 @@ const setProData = (id: string): ProjectData | null | undefined => {
             whileInView="visible"
             :inViewOptions="{ once: true, amount: 'some' }"
           >
-            <p class="text-white text-lg">
+            <p class="text-white text-lg pb-4">
               <strong class="text-white/50 block uppercase">Agency:</strong>{{ proData.company }}
             </p>
-            <p class="text-white text-lg">
+            <p class="text-white text-lg pb-4">
               <strong class="text-white/50 block uppercase">Client:</strong>{{ proData.title }}
             </p>
-            <p class="text-white text-lg">
+            <p class="text-white text-lg pb-4">
               <strong class="text-white/50 block uppercase">Role:</strong>{{ proData.role }}
             </p>
+            <p class="text-white text-lg">
+              <strong class="text-white/50 block uppercase">Tech Stack</strong>
+            </p>
+            <ul>
+              <li
+                v-for="(tech, index) in proData.tech"
+                :key="`tech${index}`"
+                class="text-white text-lg"
+              >
+                {{ tech }}
+              </li>
+            </ul>
           </motion.div>
           <motion.div
             class="w-full md:w-8/12"
@@ -98,6 +112,20 @@ const setProData = (id: string): ProjectData | null | undefined => {
             whileInView="visible"
             :inViewOptions="{ once: true, amount: 'some' }"
           >
+            <div class="grid grid-cols-4 gap-6 !mb-20">
+              <div
+                class="!bg-cover col-span-4 md:col-span-3 rounded-3xl overflow-hidden aspect-video"
+                :style="{
+                  background: `url(${proData?.website_Image?.asset?.url ?? ''}) center center no-repeat`,
+                }"
+              ></div>
+              <div
+                class="!bg-cover col-span-1 rounded-3xl overflow-hidden hidden md:block"
+                :style="{
+                  background: `url(${proData?.mobile_Image?.asset?.url ?? ''}) center center no-repeat`,
+                }"
+              ></div>
+            </div>
             <p class="text-white text-xl leading-relaxed !mb-10">{{ proData.desc }}</p>
             <a
               class="inline-block rounded-full bg-white text-black text-2xl px-10 py-4"
