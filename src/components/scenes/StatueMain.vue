@@ -2,9 +2,15 @@
 import { shallowRef } from 'vue'
 import { useRenderLoop } from '@tresjs/core'
 import { type Mesh, type ShaderMaterial, Vector2, Color } from 'three'
+import { Icosahedron, Edges } from '@tresjs/cientos'
+import { useScroll, useTransform } from 'motion-v'
 
 const plane = shallowRef<Mesh | null>(null)
 const sphere = shallowRef<Mesh | null>(null)
+const { scrollYProgress } = useScroll({
+  offset: ['start start', '100vh'],
+})
+const y = useTransform(scrollYProgress, [0, 1], [0, 2])
 
 const uniforms = {
   uTime: { value: 0 },
@@ -107,20 +113,31 @@ onLoop(({ delta, elapsed }) => {
     ;(plane.value.material as ShaderMaterial).uniforms.uTime.value = elapsed
   }
   if (sphere.value) {
-    sphere.value.rotation.y += delta
+    sphere.value.rotation.z -= delta * 0.15
+    sphere.value.rotation.y -= delta * 0.1
+    sphere.value.position.y = 0 + y.get() * 2
   }
 })
 </script>
 
 <template>
+  <TresDirectionalLight cast-shadow :position="[2, 0, 0]" :intensity="3" />
   <TresGroup>
-    <TresMesh receive-shadow ref="plane" :position="[0, 0, 0]" :rotation="[0, 0, 0]">
+    <TresMesh ref="plane" :position="[0, 0, 0]" :rotation="[0, 0, 0]">
       <TresPlaneGeometry :args="[10, 6, 128, 128]" />
       <TresShaderMaterial
         :vertexShader="vertexShader"
         :fragmentShader="fragmentShader"
         :uniforms="uniforms"
       />
+    </TresMesh>
+  </TresGroup>
+  <TresGroup>
+    <TresMesh receive-shadow ref="sphere" :position="[0, 0, 1]" :rotation="[0, 0, 0]">
+      <Icosahedron ref="dodecahedronRef" :args="[1, 0]" :position="[0, 0, 0]">
+        <TresMeshStandardMaterial color="#333333" :roughness="0.5" :metalness="0.5" />
+        <Edges color="#555555" />
+      </Icosahedron>
     </TresMesh>
   </TresGroup>
 </template>
