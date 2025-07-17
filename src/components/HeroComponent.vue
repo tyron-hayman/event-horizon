@@ -17,10 +17,10 @@ const titleArr: Array<string> | undefined = props.title?.split(' ')
 <template>
   <motion.div
     ref="heroRef"
-    class="w-full relative pt-40 pb-20 md:pb-0 md:pt-0 md:px-10 xl:p-0 md:flex items-center justify-center md:h-screen md:min-h-[700px]"
+    class="w-full relative flex items-center justify-center h-screen min-h-screen"
   >
     <div class="w-full overflow-hidden">
-      <Vue3Marquee :duration="40" class="overflow-y-hidden">
+      <Vue3Marquee :duration="30" class="overflow-y-hidden">
         <span
           v-for="(brand, index) in titleArr"
           :key="`brand${index}`"
@@ -30,9 +30,9 @@ const titleArr: Array<string> | undefined = props.title?.split(' ')
         </span>
       </Vue3Marquee>
     </div>
-    <div class="absolute inset-x-0 bottom-0 pb-10 flex justify-center opacity-0 md:opacity-100">
+    <div class="absolute inset-x-0 bottom-15 md:bottom-0 pb-10 flex justify-center">
       <div>
-        <p class="text-white text-xl !mb-5">Scroll for more</p>
+        <p class="text-white text-lg md:text-xl !mb-5">Scroll for more</p>
         <ArrowDown class="animate-bounce !mx-auto" :size="32" color="#ffffff" />
       </div>
     </div>
