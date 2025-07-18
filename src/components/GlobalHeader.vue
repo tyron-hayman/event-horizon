@@ -18,7 +18,6 @@ const handleNavLink = (e: MouseEvent) => {
   if (el) {
     el.scrollIntoView({ behavior: 'smooth' })
   }
-  console.log(el)
   return false
 }
 </script>
