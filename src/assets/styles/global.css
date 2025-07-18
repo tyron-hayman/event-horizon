@@ -6,4 +6,5 @@ html {
 
 body {
   background: oklch(20.5% 0 0);
+  scroll-behavior: smooth;
 }/*# sourceMappingURL=global.css.map */

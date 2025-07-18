@@ -56,8 +56,8 @@ const setProData = (id: string): ProjectData | null | undefined => {
 <template>
   <div class="w-full">
     <HomeScene />
-    <div class="w-full relative z-[1] flex justify-center min-h-[700px]">
-      <div v-if="proData" class="w-full !mt-10 md:!mt-40 overflow-x-hidden">
+    <div class="w-full relative z-[1] min-h-[1000px]">
+      <div v-if="proData" class="w-full !mt-10 md:!mt-40">
         <div class="container !mx-auto px-5 md:px-10 xl:px-0" @click="goBack">
           <CircleArrowLeft
             class="text-3xl text-white !mb-10 inline-block cursor-pointer"
@@ -65,7 +65,7 @@ const setProData = (id: string): ProjectData | null | undefined => {
             :size="40"
           />
         </div>
-        <Vue3Marquee :duration="40" class="overflow-y-hidden">
+        <Vue3Marquee :duration="40" class="overflow-y-hidden overflow-x-hidden">
           <h1 class="text-white text-8xl md:text-[10vw] leading-[1] block px-5">
             {{ proData.title }}
           </h1>
