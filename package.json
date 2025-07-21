@@ -24,6 +24,7 @@
     "@tresjs/core": "^4.3.6",
     "@tresjs/leches": "^0.14.1",
     "@tresjs/post-processing": "^2.4.0",
+    "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "lucide-vue-next": "^0.503.0",
     "motion-v": "^1.0.0",

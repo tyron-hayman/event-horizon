@@ -4,6 +4,7 @@ import { SpeedInsights } from '@vercel/speed-insights/vue'
 import CursorComponent from '@/components/CursorComponent.vue'
 import { homepageStore } from '@/stores/sanity'
 import { workStore } from '@/stores/work'
+import { inject } from '@vercel/analytics'
 
 const active = ref<boolean>(true)
 const homeStore = homepageStore()
@@ -35,6 +36,7 @@ onMounted(async () => {
   if (!homeStore.isLoading) {
     active.value = false
   }
+  inject()
 })
 </script>
 
