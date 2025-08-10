@@ -30,7 +30,7 @@ const titleArr: Array<string> | undefined = props.title?.split(' ')
         </span>
       </Vue3Marquee>
     </div>
-    <div class="absolute inset-x-0 bottom-15 md:bottom-0 pb-10 flex justify-center">
+    <div class="absolute inset-x-0 bottom-40 md:bottom-0 pb-10 flex justify-center">
       <div>
         <p class="text-white text-lg md:text-xl !mb-5">Scroll for more</p>
         <ArrowDown class="animate-bounce !mx-auto" :size="32" color="#ffffff" />

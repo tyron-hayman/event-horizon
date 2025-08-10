@@ -9,8 +9,12 @@ import ServicesComponent from '@/components/ServicesComponent.vue'
 import ExerienceComponent from '@/components/ExerienceComponent.vue'
 import TestimonialsComponent from '@/components/TestimonialsComponent.vue'
 import FooterComponent from '@/components/FooterComponent.vue'
+import { geminiStore } from '@/stores/gemini'
 
 const homeStore = homepageStore()
+const gemstore = geminiStore()
+
+gemstore.setStatus("Tyron Hayman's Portfolio")
 </script>
 
 <template>

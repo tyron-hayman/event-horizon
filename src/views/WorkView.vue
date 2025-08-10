@@ -6,6 +6,7 @@ import { homepageStore } from '@/stores/sanity'
 import { type ProjectData, workStore } from '@/stores/work'
 import { useCursorStore } from '@/stores/cursor'
 import { CircleArrowLeft } from 'lucide-vue-next'
+import { geminiStore } from '@/stores/gemini'
 
 const route = useRoute()
 const router = useRouter()
@@ -14,6 +15,7 @@ const cursorStore = useCursorStore()
 const workpageStore = workStore()
 const proData = ref<ProjectData | null | undefined>(null)
 const pro_id = route.params.id
+const gemstore = geminiStore()
 
 const variants = {
   hidden: { opacity: 0, y: 50 },
@@ -36,6 +38,7 @@ onMounted(async () => {
       await workpageStore.fetchWork()
     }
     proData.value = setProData(pro_id as string)
+    gemstore.setStatus(proData.value?.title as string)
   }
 })
 

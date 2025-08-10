@@ -92,7 +92,7 @@ void main() {
     float brightness = 1.2;
     vec3 color = mix(vec3(0.0), baseColor, dots) * brightness;
 
-    float grainStrength = 0.3; // Adjust for more/less grain
+    float grainStrength = 0.15; // Adjust for more/less grain
     float grain = (random(vUv * uTime * 2.0) - 0.5) * grainStrength;
     color += grain;
     

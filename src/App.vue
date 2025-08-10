@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { SpeedInsights } from '@vercel/speed-insights/vue'
 import CursorComponent from '@/components/CursorComponent.vue'
+import ChatboxComponent from './components/ChatboxComponent.vue'
 import { homepageStore } from '@/stores/sanity'
 import { workStore } from '@/stores/work'
 import { inject } from '@vercel/analytics'
@@ -43,6 +44,7 @@ onMounted(async () => {
 <template>
   <SpeedInsights />
   <CursorComponent />
+  <ChatboxComponent :isLoaded="active" />
   <div
     class="fixed inset-x-0 top-0 bg-stone-900 z-[99] transition-all duration-700"
     :class="active ? 'h-[100vh]' : 'h-[0vh]'"

@@ -13,6 +13,7 @@ declare module 'vue' {
     BackgroundGradient: typeof import('./src/components/BackgroundGradient.vue')['default']
     Bear: typeof import('./src/components/scenes/Bear.vue')['default']
     BearModel: typeof import('./src/components/scenes/BearModel.vue')['default']
+    ChatboxComponent: typeof import('./src/components/ChatboxComponent.vue')['default']
     Cursor: typeof import('./src/components/Cursor.vue')['default']
     CursorComponent: typeof import('./src/components/CursorComponent.vue')['default']
     ExerienceComponent: typeof import('./src/components/ExerienceComponent.vue')['default']
