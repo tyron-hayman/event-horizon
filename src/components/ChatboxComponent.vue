@@ -55,7 +55,6 @@ const systemPrompt = `"You are 'TyronBot', a helpful and cheeky digital assistan
 const sendMessage = async () => {
   isVisible.value = false
   gemLoading.value = true
-  console.log(gemstore.status)
   const fullPrompt = `${systemPrompt}\n\n - If a user references "this" in regards to particular project in his portfolio, use ${gemstore.status} as your reference. \n\n User's question: "${userPrompt.value}"`
   try {
     const response = await fetch(backendUrl, {

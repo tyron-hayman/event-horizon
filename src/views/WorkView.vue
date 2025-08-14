@@ -131,6 +131,7 @@ const setProData = (id: string): ProjectData | null | undefined => {
             </div>
             <p class="text-white text-xl leading-relaxed !mb-10">{{ proData.desc }}</p>
             <a
+              v-if="proData.link"
               class="inline-block rounded-full bg-white text-black text-2xl px-10 py-4"
               :href="proData.link"
               target="_blank"
@@ -138,6 +139,9 @@ const setProData = (id: string): ProjectData | null | undefined => {
               @mouseleave="cursorStore.notHovered"
               >Visit</a
             >
+            <p v-else class="inline-block rounded-full bg-white text-black text-2xl px-10 py-4">
+              Coming Soon
+            </p>
           </motion.div>
         </div>
       </div>
