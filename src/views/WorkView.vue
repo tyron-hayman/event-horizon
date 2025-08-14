@@ -43,12 +43,13 @@ onMounted(async () => {
 })
 
 const goBack = () => {
-  router.push(`/`)
+  router.back()
 }
 
 const setProData = (id: string): ProjectData | null | undefined => {
   if (workpageStore.proData) {
-    const response = workpageStore.proData.find((o) => o._id === id)
+    const query = decodeURIComponent(id)
+    const response = workpageStore.proData.find((o) => o.title === query)
     return response
   } else {
     return null

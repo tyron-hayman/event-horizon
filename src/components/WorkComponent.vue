@@ -66,7 +66,8 @@ const proVariants = {
 }
 
 const openProject = (id: string) => {
-  router.push(`/work/${id}`)
+  const urlSafeTitle: string = encodeURIComponent(id)
+  router.push(`/work/${urlSafeTitle}`)
 }
 </script>
 
@@ -97,7 +98,7 @@ const openProject = (id: string) => {
           initial="hidden"
           whileInView="visible"
           :inViewOptions="{ once: true, amount: 0.1 }"
-          @click="openProject(project._id)"
+          @click="openProject(project.title)"
           @mouseover="cursorStore.hovered"
           @mouseleave="cursorStore.notHovered"
         >

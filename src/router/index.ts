@@ -3,10 +3,14 @@ import HomeView from '../views/HomeView.vue'
 import WorkView from '@/views/WorkView.vue'
 
 const router = createRouter({
-  scrollBehavior() {
+  scrollBehavior(to, from, savedPosition) {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve({ left: 0, top: 0 })
+        if (savedPosition) {
+          resolve({ top: savedPosition.top })
+        } else {
+          resolve({ left: 0, top: 0 })
+        }
       }, 500)
     })
   },
