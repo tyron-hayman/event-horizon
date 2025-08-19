@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { motion } from 'motion-v'
 import { homepageStore } from '@/stores/sanity'
 import { type ProjectData, workStore } from '@/stores/work'
@@ -40,18 +40,6 @@ onMounted(async () => {
     proData.value = setProData(pro_id as string)
     gemstore.setStatus(proData.value?.title as string)
   }
-})
-
-onBeforeRouteUpdate(async () => {
-  homeStore.completeLoadingInit()
-  if (!homeStore.fetchSettings) {
-    await homeStore.fetchSettings
-  }
-  if (!workpageStore.proData) {
-    await workpageStore.fetchWork()
-  }
-  proData.value = setProData(pro_id as string)
-  gemstore.setStatus(proData.value?.title as string)
 })
 
 const goBack = () => {
