@@ -7,4 +7,51 @@ html {
 body {
   background: oklch(20.5% 0 0);
   scroll-behavior: smooth;
+}
+
+.blogSingleView h2,
+.blogSingleView h3,
+.blogSingleView h4,
+.blogSingleView h5,
+.blogSingleView h6 {
+  font-size: 3rem;
+  padding-bottom: 1.25rem;
+  padding-top: 2.5rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+.blogSingleView p {
+  font-size: 1.5rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.5);
+  padding-bottom: 2.5rem;
+}
+.blogSingleView p code {
+  display: block;
+  width: 100%;
+  background: rgb(0, 0, 0);
+  padding: 1.25rem;
+  border-radius: 1.5rem;
+  text-wrap: pretty;
+  font-size: 1rem;
+}
+@media (max-width: 800px) {
+  .blogSingleView p code {
+    font-size: 0.7rem;
+  }
+}
+.blogSingleView ul,
+.blogSingleView ol {
+  margin-left: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+.blogSingleView ul li,
+.blogSingleView ol li {
+  font-size: 1.5rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.5);
+  list-style: circle;
+}
+.blogSingleView ol li {
+  list-style: decimal;
 }/*# sourceMappingURL=global.css.map */

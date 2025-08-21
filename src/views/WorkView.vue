@@ -5,7 +5,6 @@ import { motion } from 'motion-v'
 import { homepageStore } from '@/stores/sanity'
 import { type ProjectData, workStore } from '@/stores/work'
 import { useCursorStore } from '@/stores/cursor'
-import { CircleArrowLeft } from 'lucide-vue-next'
 import { geminiStore } from '@/stores/gemini'
 
 const route = useRoute()
@@ -42,10 +41,6 @@ onMounted(async () => {
   }
 })
 
-const goBack = () => {
-  router.back()
-}
-
 const setProData = (id: string): ProjectData | null | undefined => {
   if (workpageStore.proData) {
     const query = decodeURIComponent(id)
@@ -59,16 +54,10 @@ const setProData = (id: string): ProjectData | null | undefined => {
 
 <template>
   <div class="w-full">
+    <GlobalHeader :image="homeStore.siteAvatar" />
     <HomeScene />
     <div class="w-full relative z-[1] min-h-[1000px]">
-      <div v-if="proData" class="w-full !mt-10 md:!mt-40">
-        <div class="container !mx-auto px-5 md:px-10 xl:px-0" @click="goBack">
-          <CircleArrowLeft
-            class="text-3xl text-white !mb-10 inline-block cursor-pointer"
-            color="#ffffff"
-            :size="40"
-          />
-        </div>
+      <div v-if="proData" class="w-full !mt-40">
         <Vue3Marquee :duration="40" class="overflow-y-hidden overflow-x-hidden">
           <h1 class="text-white text-8xl md:text-[10vw] leading-[1] block px-5">
             {{ proData.title }}
@@ -81,7 +70,7 @@ const setProData = (id: string): ProjectData | null | undefined => {
           class="container !mx-auto md:flex justify-between !mt-10 md:!mt-20 px-5 md:px-10 xl:px-0"
         >
           <motion.div
-            class="w-full md:w-3/12 !mb-10 md:!mb-0"
+            class="w-full md:w-3/12 !mb-10 md:!mb-0 grid gap-10 md:block grid-cols-2 md:grid-cols-1"
             :variants="variants"
             initial="hidden"
             whileInView="visible"
@@ -96,18 +85,20 @@ const setProData = (id: string): ProjectData | null | undefined => {
             <p class="text-white text-lg pb-4">
               <strong class="text-white/50 block uppercase">Role:</strong>{{ proData.role }}
             </p>
-            <p class="text-white text-lg">
-              <strong class="text-white/50 block uppercase">Tech Stack</strong>
-            </p>
-            <ul>
-              <li
-                v-for="(tech, index) in proData.tech"
-                :key="`tech${index}`"
-                class="text-white text-lg"
-              >
-                {{ tech }}
-              </li>
-            </ul>
+            <div>
+              <p class="text-white text-lg">
+                <strong class="text-white/50 block uppercase">Tech Stack</strong>
+              </p>
+              <ul>
+                <li
+                  v-for="(tech, index) in proData.tech"
+                  :key="`tech${index}`"
+                  class="text-white text-lg"
+                >
+                  {{ tech }}
+                </li>
+              </ul>
+            </div>
           </motion.div>
           <motion.div
             class="w-full md:w-8/12"

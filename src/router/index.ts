@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import WorkView from '@/views/WorkView.vue'
+import BlogView from '@/views/BlogView.vue'
+import BlogViewSingle from '@/views/BlogViewSingle.vue'
 
 const router = createRouter({
   scrollBehavior(to, from, savedPosition) {
@@ -27,6 +29,8 @@ const router = createRouter({
       component: WorkView,
     },
     { path: '/work/:id', component: WorkView },
+    { path: '/blog', component: BlogView },
+    { path: '/blog/:id', component: BlogViewSingle },
   ],
 })
 

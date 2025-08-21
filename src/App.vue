@@ -5,11 +5,13 @@ import CursorComponent from '@/components/CursorComponent.vue'
 import ChatboxComponent from './components/ChatboxComponent.vue'
 import { homepageStore } from '@/stores/sanity'
 import { workStore } from '@/stores/work'
+import { blogStore } from '@/stores/blog'
 import { inject } from '@vercel/analytics'
 
 const active = ref<boolean>(true)
 const homeStore = homepageStore()
 const workpageStore = workStore()
+const blogPageStore = blogStore()
 
 const onBeforeEnter = () => {
   active.value = true
@@ -34,6 +36,7 @@ const onLeave = (el: Element, done: () => void) => {
 onMounted(async () => {
   await homeStore.fetchSettings()
   await workpageStore.fetchWork()
+  await blogPageStore.fetchBlogPosts()
   if (!homeStore.isLoading) {
     active.value = false
   }

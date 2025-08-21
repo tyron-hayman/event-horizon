@@ -40,4 +40,30 @@ export function urlFor(source: SanityImageSource) {
   return builder.image(source)
 }
 
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString)
+
+  const day = date.getUTCDate()
+  const month = date.toLocaleString('en-US', { month: 'long', timeZone: 'UTC' })
+  const year = date.getUTCFullYear()
+
+  // Add ordinal suffix
+  function getOrdinal(n: number) {
+    if (n > 3 && n < 21) return 'th' // handles 11th–19th
+    switch (n % 10) {
+      case 1:
+        return 'st'
+      case 2:
+        return 'nd'
+      case 3:
+        return 'rd'
+      default:
+        return 'th'
+    }
+  }
+
+  return `${month} ${day}${getOrdinal(day)}, ${year}`
+}
+
 export default sanityClient
+export { formatDate }

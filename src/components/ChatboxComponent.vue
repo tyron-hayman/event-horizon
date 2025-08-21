@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { motion, AnimatePresence } from 'motion-v'
 import { Send, LoaderCircle } from 'lucide-vue-next'
 import { useCursorStore } from '@/stores/cursor'
 import { geminiStore } from '@/stores/gemini'
+import { useRoute } from 'vue-router'
 
 defineProps<{
   isLoaded: boolean
@@ -18,9 +19,11 @@ const variants = {
   },
 }
 
+const route = useRoute()
 const cursorStore = useCursorStore()
 const userPrompt = ref<string>('')
 const geminiResponse = ref<string>('')
+const isBlogPage = computed<boolean>(() => route.fullPath.startsWith('/blog'))
 const isVisible = ref<boolean>(false)
 const gemLoading = ref<boolean>(false)
 // Replace with the URL of your deployed backend server
@@ -98,6 +101,7 @@ const hideWelcomeText = () => {
 </script>
 <template>
   <motion.div
+    v-if="!isBlogPage"
     class="fixed z-[10] right-0 md:right-10 px-5 md:px-0 bottom-10 w-full md:w-[400px]"
     :variants="variants"
     :animate="!isLoaded ? 'visible' : 'hidden'"
@@ -135,4 +139,5 @@ const hideWelcomeText = () => {
       </button>
     </div>
   </motion.div>
+  <div v-else></div>
 </template>

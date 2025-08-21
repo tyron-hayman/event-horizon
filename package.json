@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
+    "@portabletext/vue": "^1.0.12",
     "@tailwindcss/vite": "^4.1.4",
     "@tresjs/cientos": "^4.3.1",
     "@tresjs/core": "^4.3.6",

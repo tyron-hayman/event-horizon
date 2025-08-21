@@ -1,24 +1,42 @@
 <script setup lang="ts">
 import { type SanityImageData, type SanityImageAsset } from '@/utils/sanity/sanity'
+import { useCursorStore } from '@/stores/cursor'
+import { useRoute, useRouter } from 'vue-router'
 defineProps<{
   image?: (SanityImageData & { asset?: SanityImageAsset | undefined }) | undefined
 }>()
 
-const navArr: Array<{ title: string; target: string }> = [
+const cursorStore = useCursorStore()
+const router = useRouter()
+const route = useRoute()
+const navArr: Array<{ title: string; target?: string; link?: string }> = [
   { title: 'Work', target: 'workContainer' },
+  { title: 'Blog', link: '/blog' },
   { title: 'About', target: 'aboutContainer' },
   { title: 'Services', target: 'serviceContainer' },
-  { title: 'Contact', target: 'contactContainer' },
 ]
 
 const handleNavLink = (e: MouseEvent) => {
   e.preventDefault()
   const target = (e.target as HTMLElement).dataset.target
   const el = document.querySelector(`.${target}`)
+  const isBlogPage = route.fullPath.startsWith('/blog')
+  const isWorkPage = route.fullPath.startsWith('/work')
+  console.log(route.fullPath)
+
+  if (isBlogPage || isWorkPage) {
+    router.push({ path: '/', hash: `#${target}` })
+    return false
+  }
+
   if (el) {
     el.scrollIntoView({ behavior: 'smooth' })
   }
   return false
+}
+
+const goHome = (): void => {
+  router.push('/')
 }
 </script>
 
@@ -29,16 +47,30 @@ const handleNavLink = (e: MouseEvent) => {
         <div
           class="w-[50px] h-[50px] !bg-cover rounded-full"
           :style="{ backgroundImage: `url(${image.asset.url})` }"
+          @click="goHome"
+          @mouseover="cursorStore.hovered"
+          @mouseleave="cursorStore.notHovered"
         ></div>
       </div>
       <div>
         <ul class="flex items-center gap-2 md:gap-4">
           <li v-for="(navItem, index) in navArr" :key="`nav${index}`">
             <a
+              v-if="navItem.target"
               class="text-white text-lg md:text-xl"
               href="/"
               :data-target="navItem.target"
               @click="(e) => handleNavLink(e)"
+              @mouseover="cursorStore.hovered"
+              @mouseleave="cursorStore.notHovered"
+              >{{ navItem.title }}</a
+            >
+            <a
+              v-else
+              class="text-white text-lg md:text-xl"
+              :href="navItem.link"
+              @mouseover="cursorStore.hovered"
+              @mouseleave="cursorStore.notHovered"
               >{{ navItem.title }}</a
             >
           </li>
