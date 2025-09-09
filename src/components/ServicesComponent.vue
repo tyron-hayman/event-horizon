@@ -47,7 +47,7 @@ const serviceVariants = {
         <motion.div
           v-for="(service, index) in data"
           :key="`service${index}`"
-          class="col-span-3 lg:col-span-1 border-2 border-solid border-white/30 rounded-4xl p-10"
+          class="col-span-3 lg:col-span-1 bg-black rounded-4xl p-10"
           :style="{ zIndex: index }"
           :variants="serviceVariants"
           :custom="index"
@@ -55,7 +55,7 @@ const serviceVariants = {
           whileInView="visible"
           :inViewOptions="{ once: true, amount: 0.25 }"
         >
-          <h3 class="text-white text-4xl md:text-5xl !font-black uppercase !mb-10">
+          <h3 class="text-white text-3xl md:text-4xl !font-black uppercase !mb-10">
             {{ service.title }}
           </h3>
           <p class="text-neutral-500 text-xl leading-relaxed">{{ service.desc }}</p>

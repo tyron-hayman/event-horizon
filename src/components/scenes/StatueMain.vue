@@ -1,11 +1,15 @@
 <script lang="ts" setup>
-import { shallowRef } from 'vue'
+import { shallowRef, onMounted, onBeforeUnmount } from 'vue'
 import { useRenderLoop } from '@tresjs/core'
-import { type Mesh, type ShaderMaterial, Vector2, Color } from 'three'
+import { Mesh, type ShaderMaterial, Vector2, Color, MeshStandardMaterial } from 'three'
+import { useGLTF } from '@tresjs/cientos'
+import { useScroll } from 'motion-v'
 
 const plane = shallowRef<Mesh | null>(null)
-const sphere = shallowRef<Mesh | null>(null)
-
+const deer = shallowRef<Mesh | null>(null)
+const groupDeer = shallowRef<Mesh | null>(null)
+const { scene } = await useGLTF('/models/deer.glb')
+const modelRotation = shallowRef<[number, number, number]>([0, 0, 0])
 const uniforms = {
   uTime: { value: 0 },
   uAmplitude: { value: new Vector2(0.4, 0.4) },
@@ -13,6 +17,7 @@ const uniforms = {
   uTopColour: { value: new Color(0x000000) }, // Example: blue
   uBottomColour: { value: new Color(0x4338ca) },
 }
+const { scrollYProgress } = useScroll()
 
 const vertexShader = `
 varying vec2 vUv;
@@ -28,8 +33,8 @@ uniform float uTime;
 varying vec2 vUv;
 
 #define COL_BASE vec3(0.,0.,0.01)
-#define COL_CONT vec3(0.11,0.098,0.09)
-#define COL_FREQ vec3(1.,1.,1.)
+#define COL_CONT vec3(0.1,0.1,0.1)
+#define COL_FREQ vec3(1.0,1.0,1.0)
 #define COL_PHAS vec3(1.,0.,1.)
 
 #define ROT_SPEED 0.15
@@ -100,29 +105,62 @@ void main() {
 }
 `
 
+const onMouseMove = (e: MouseEvent) => {
+  const x = (e.clientX / window.innerWidth) * 2 - 1
+  const y = -(e.clientY / window.innerHeight) * 2 + 1
+
+  // Map to rotation angles (tweak scaling factors to taste)
+  const rotX = y * 0.2 // tilt up/down
+  const rotY = x * 0.2 // turn left/right
+
+  modelRotation.value = [-rotX, rotY, 0]
+}
+
 const { onLoop } = useRenderLoop()
 
-onLoop(({ delta, elapsed }) => {
+onLoop(({ elapsed }) => {
   if (plane.value) {
     ;(plane.value.material as ShaderMaterial).uniforms.uTime.value = elapsed
   }
-  if (sphere.value) {
-    sphere.value.rotation.z -= delta * 0.15
-    sphere.value.rotation.y -= delta * 0.1
+  if (deer.value) {
+    deer.value.position.y = -0.2 + scrollYProgress.get() * 7
   }
+})
+
+onMounted(() => {
+  window.addEventListener('mousemove', onMouseMove)
+
+  scene.traverse((child) => {
+    if (child instanceof Mesh) {
+      child.material = new MeshStandardMaterial({
+        color: 0xe0e0e0,
+        roughness: 0.9,
+        metalness: 0.9,
+      })
+    }
+  })
+})
+onBeforeUnmount(() => {
+  window.removeEventListener('mousemove', onMouseMove)
 })
 </script>
 
 <template>
-  <TresDirectionalLight cast-shadow :position="[2, 0, 0]" :intensity="3" />
+  <TresDirectionalLight cast-shadow :position="[-2, 1, 0]" :intensity="0.5" color="#ffffff" />
+  <TresDirectionalLight cast-shadow :position="[1, -5, 0]" :intensity="0.2" color="#ffffff" />
   <TresGroup>
-    <TresMesh ref="plane" :position="[0, 0, 0]" :rotation="[0, 0, 0]">
+    <TresMesh ref="plane" :position="[0, 0, 0]">
       <TresPlaneGeometry :args="[10, 6, 128, 128]" />
       <TresShaderMaterial
         :vertexShader="vertexShader"
         :fragmentShader="fragmentShader"
         :uniforms="uniforms"
       />
+    </TresMesh>
+  </TresGroup>
+  <TresGroup ref="groupDeer">
+    <TresMesh ref="deer" :position="[0, -0.2, 3.8]" :rotation="modelRotation">
+      <primitive :object="scene" />
     </TresMesh>
   </TresGroup>
 </template>

@@ -1,8 +1,8 @@
 // https://on.cypress.io/api
 
-describe('My First Test', () => {
-  it('visits the app root url', () => {
-    cy.visit('/')
-    cy.contains('h1', 'You did it!')
+describe('Test Root', () => {
+  it('visits work example', () => {
+    cy.visit('/work/MYB%20Plus')
+    cy.contains('a', 'VISIT')
   })
 })

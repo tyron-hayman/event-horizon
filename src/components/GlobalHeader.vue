@@ -9,9 +9,9 @@ defineProps<{
 const cursorStore = useCursorStore()
 const router = useRouter()
 const route = useRoute()
-const navArr: Array<{ title: string; target?: string; link?: string }> = [
+const navArr: Array<{ title: string; target?: string; link?: string; link_target?: string }> = [
   { title: 'Work', target: 'workContainer' },
-  { title: 'Blog', link: '/blog' },
+  { title: 'GitHub', link: 'https://github.com/tyron-hayman', link_target: '_blank' },
   { title: 'About', target: 'aboutContainer' },
   { title: 'Services', target: 'serviceContainer' },
 ]
@@ -71,6 +71,7 @@ const goHome = (): void => {
               :href="navItem.link"
               @mouseover="cursorStore.hovered"
               @mouseleave="cursorStore.notHovered"
+              :target="navItem.link_target"
               >{{ navItem.title }}</a
             >
           </li>
