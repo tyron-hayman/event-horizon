@@ -11,9 +11,8 @@ const router = useRouter()
 const route = useRoute()
 const navArr: Array<{ title: string; target?: string; link?: string; link_target?: string }> = [
   { title: 'Work', target: 'workContainer' },
-  { title: 'GitHub', link: 'https://github.com/tyron-hayman', link_target: '_blank' },
   { title: 'About', target: 'aboutContainer' },
-  { title: 'Services', target: 'serviceContainer' },
+  { title: 'GitHub', link: 'https://github.com/tyron-hayman', link_target: '_blank' },
 ]
 
 const handleNavLink = (e: MouseEvent) => {

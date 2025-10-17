@@ -9,6 +9,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AboutComponent: typeof import('./src/components/AboutComponent.vue')['default']
+    AnimatePresence: typeof import('motion-v')['AnimatePresence']
     BackgoundThree: typeof import('./src/components/BackgoundThree.vue')['default']
     BackgroundGradient: typeof import('./src/components/BackgroundGradient.vue')['default']
     Bear: typeof import('./src/components/scenes/Bear.vue')['default']
@@ -39,5 +40,6 @@ declare module 'vue' {
     TransitionComponent: typeof import('./src/components/TransitionComponent.vue')['default']
     WelcomeItem: typeof import('./src/components/WelcomeItem.vue')['default']
     WorkComponent: typeof import('./src/components/WorkComponent.vue')['default']
+    WorkLinks: typeof import('./src/components/ui/WorkLinks.vue')['default']
   }
 }

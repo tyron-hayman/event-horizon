@@ -6,11 +6,16 @@ import { homepageStore } from '@/stores/sanity'
 import { workStore } from '@/stores/work'
 import { blogStore } from '@/stores/blog'
 import { inject } from '@vercel/analytics'
+import { VueLenis, useLenis } from 'lenis/vue'
 
 const active = ref<boolean>(true)
 const homeStore = homepageStore()
 const workpageStore = workStore()
 const blogPageStore = blogStore()
+
+const lenisOptions = {
+  // lenis options (optional)
+}
 
 const onBeforeEnter = () => {
   active.value = true
@@ -46,6 +51,7 @@ onMounted(async () => {
 <template>
   <SpeedInsights />
   <CursorComponent />
+  <VueLenis root :options="lenisOptions" />
   <div
     class="fixed inset-x-0 top-0 bg-stone-900 z-[99] transition-all duration-700"
     :class="active ? 'h-[100vh]' : 'h-[0vh]'"

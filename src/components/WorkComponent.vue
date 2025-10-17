@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { motion, useTransform, useScroll } from 'motion-v'
-import { ArrowUpRight } from 'lucide-vue-next'
+import { motion, useScroll } from 'motion-v'
 import { useCursorStore } from '@/stores/cursor'
-import { useRouter } from 'vue-router'
 import { ref } from 'vue'
-import { Dot } from 'lucide-vue-next'
+import { Dot, MoveRight } from 'lucide-vue-next'
+import WorkLinks from './ui/WorkLinks.vue'
+import { useDevice } from '@/utils/DeviceCheck'
 
 defineProps<{
   title?: string
@@ -31,98 +31,130 @@ const brands: Array<string> = [
   '131 Water',
 ]
 
+const { isMobile } = useDevice();
 const containerRef = ref(null)
 const cursorStore = useCursorStore()
-const router = useRouter()
 const { scrollYProgress } = useScroll({
   target: containerRef,
-  offset: ['start start', '400px'],
+  offset: ['-0.2 start', 'end end'],
 })
-const scale = useTransform(scrollYProgress, [0, 1], [1, 0.3])
-const opacity = useTransform(scrollYProgress, [0, 1], [1, 0])
-const y = useTransform(scrollYProgress, [0, 1], ['0px', '40px'])
-const blur = useTransform(scrollYProgress, [0, 1], ['blur(0px)', 'blur(20px)'])
-
+const activeBg = ref<number>(0)
+const currActiveBG = ref<number>(0)
 const variants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.75, ease: 'anticipate' },
-  },
-}
-
-const proVariants = {
-  hidden: { opacity: 0, y: 100 },
+  initial: { opacity: 0, x: 100, filter: 'blur(8px)' },
   visible: (custom: unknown) => ({
     opacity: 1,
     y: 0,
+    filter: 'blur(0px)',
     transition: {
-      duration: 0.75,
+      duration: 0.35,
       ease: 'easeInOut',
-      delay: typeof custom === 'number' ? 0.2 * custom : 0,
+      delay: typeof custom === 'number' ? 0.05 * custom : 0,
     },
   }),
+  exit: { opacity: 0, x: 100, filter: 'blur(8px)' }
+}
+const proImageVariants = {
+  initial: { opacity: 0, filter: 'blur(8px)' },
+  visible: { 
+    opacity: 1, 
+    filter: 'blur(0px)', 
+    transition: {
+      duration: 0.5,
+    },
+  },
+  exit: { opacity: 0, filter: 'blur(8px)' }
 }
 
-const openProject = (id: string) => {
-  const urlSafeTitle: string = encodeURIComponent(id)
-  router.push(`/work/${urlSafeTitle}`)
+const porjectHover = (index : number) => {
+  cursorStore.hovered;
+  activeBg.value = index;
+}
+
+const porjectHoverMobile = (index : number) => {
+  activeBg.value = index;
+  currActiveBG.value = index;
 }
 </script>
 
 <template>
-  <div
-    class="w-full px-5 py-20 md:px-10 xl:px-0 md:py-40 flex justify-center min-h-[700px] workContainer"
+  <section
+    ref="containerRef"
+    class="w-full lg:min-h-[130dvh] relative workContainer py-40"
   >
-    <div v-if="data" ref="containerRef" class="container relative">
-      <motion.h2
-        class="text-white text-5xl md:text-8xl !font-light block pb-10 md:pb-20 uppercase sticky top-20 text-center relative"
-        :style="{ scale, y, filter: blur, opacity }"
-        :variants="variants"
-        initial="hidden"
-        whileInView="visible"
-        :inViewOptions="{ once: true, amount: 'all' }"
-        >{{ title }}</motion.h2
-      >
-      <div
-        class="w-full lg:grid grid-cols-[repeat(2,1fr)] gap-[10rem] items-start relative z-[1] cursor-pointer !mt-20"
-      >
-        <motion.div
-          class="!mb-20 md:!mb-0"
-          v-for="(project, index) in data"
-          :class="index % 2 != 0 ? '!mt-50' : null"
-          :key="project.title"
-          :variants="proVariants"
-          :custom="index"
-          initial="hidden"
-          whileInView="visible"
-          :inViewOptions="{ once: true, amount: 0.1 }"
-          @click="openProject(project.title)"
-          @mouseover="cursorStore.hovered"
-          @mouseleave="cursorStore.notHovered"
-        >
-          <div
-            class="w-full aspect-square !bg-cover rounded-3xl !mb-10"
-            :style="{ background: `url(${project.Image?.asset.url}) center center no-repeat` }"
-          ></div>
-          <h2 class="text-white text-3xl md:text-5xl font-normal !mb-5 uppercase w-full">
-            {{ project.title }}<ArrowUpRight class="inline-block align-middle" :size="44" />
-          </h2>
-          <ul class="flex flex-wrap items-center gap-2">
-            <li
-              v-for="(tech, index) in project.tech"
-              :key="`tech${index}`"
-              class="text-white text-md bg-stone-900 py-1 px-4 rounded-full"
-            >
-              {{ tech }}
-            </li>
-          </ul>
-        </motion.div>
+    <div class="w-full sticky top-30">
+      <div class="w-full lg:min-h-[80vh] lg:min-h-[80vh] relative grid grid-cols-2 gap-0 z-[2]">
+          <div class="col-span-2 lg:col-span-1 self-start"><h2 class="text-4xl leading-4xl font-black text-white pl-10">{{  title  }}</h2></div>
+          <div class="col-span-2 relative lg:absolute z-[1] lg:left-10 md:top-0 lg:top-20 lg:right-10 overflow-x-hidden block !my-20 xl:!my-0">
+        <AnimatePresence>
+          <div class="w-full flex justify-between flex-wrap">
+            <div class="w-full lg:w-6/12">
+              <div v-if="data" class="w-full relative">
+                <motion.div
+                  :key="`workImage${activeBg}`"
+                  class="w-11/12 lg:w-full !mx-auto lg:!m-0 aspect-video !bg-cover rounded-full relative z-[1] shadow-sm"
+                  :style="{ background : `url(${data[activeBg].Image.asset.url}) center center no-repeat` }"
+                  :variants="proImageVariants"
+                  initial="initial"
+                  animate="visible"
+                  exit="exit"
+                ></motion.div>
+              </div>
+            </div>
+            <div :key="`work${activeBg}`" class="hidden lg:block w-5/12 xl:w-4/12">
+              <ul class="flex flex-wrap gap-2" v-if="data">
+                <motion.li
+                  class="text-white text-md xl:text-2xl rounded-full px-5 py-2 border-white/10 border-solid border-1"
+                  v-for="(tech, index) in data[activeBg].tech" 
+                  :key="`tech${index}`"
+                  :variants="variants"
+                  initial="initial"
+                  animate="visible"
+                  exit="exit"
+                  :custom="index"
+                >{{ tech }}
+                </motion.li>
+              </ul>
+            </div>
+          </div>
+        </AnimatePresence>
       </div>
-    </div>
-  </div>
-  <div class="!pt-20 pb-40 overflow-hidden">
+          <div v-if="!isMobile" class="col-span-2 self-end relative z-[2]">
+            <div class="grid grid grid-cols-12 gap-10">
+              <div class="col-span-12 lg:col-span-4"></div>
+              <div class="col-span-12 lg:col-span-8 text-left md:text-right">
+                <div class="pl-10 md:pl-0 pr-10" v-if="data">
+                  <WorkLinks 
+                    v-for="(exp, index) in data" 
+                    :key="`experience${exp}`"
+                    :title="exp.title"
+                    :link="exp.link"
+                    :index="index * 50"
+                    :progress="scrollYProgress"
+                    :data="data"
+                    @mouseover="porjectHover(index)"
+                    @mouseleave="cursorStore.notHovered"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div v-if="isMobile" class="col-span-2 self-end relative z-[2]">
+            <motion.p
+                v-for="(expMob, expindex) in data" 
+                :key="`experienceMoble${expindex}`"
+                class="text-2xl md:text-4xl text-[var(--text-color)] hover:text-white font-normal !mb-5 lg:!mb-0 block !mx-5 block flex justify-between items-center"
+                :class="expindex == activeBg ? 'text-white' : null"
+                @click="() => porjectHoverMobile(expindex)"
+            >
+                <span>{{ expMob.title }}</span>
+                <a v-if="expindex == activeBg" :href="expMob.link" class="rounded-full bg-white inline-block p-2 text-black" target="_blank"><MoveRight /></a>
+            </motion.p>
+          </div>
+        </div>
+      </div>
+    </section>
+  <section class="!pt-20 pb-40 overflow-hidden">
     <h3 class="text-3xl text-white font-bold w-10/12 md:w-1/2 text-center !mx-auto !mb-40">
       I've had the honor to work with some large companies while freelancing and during fulltime
       employment.
@@ -139,5 +171,5 @@ const openProject = (id: string) => {
         </span>
       </Vue3Marquee>
     </div>
-  </div>
+  </section>
 </template>
