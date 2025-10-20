@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { motion, useScroll } from 'motion-v'
+import { motion, useScroll, useTransform } from 'motion-v'
 import { useCursorStore } from '@/stores/cursor'
 import { ref } from 'vue'
-import { Dot, MoveRight } from 'lucide-vue-next'
-import WorkLinks from './ui/WorkLinks.vue'
+import { Dot, SquareArrowUpRight } from 'lucide-vue-next'
 import { useDevice } from '@/utils/DeviceCheck'
 
-defineProps<{
+const props = defineProps<{
   title?: string
-  data?: Array<{
+  data: Array<{
     _id: string
     Image: { asset: { url: string } }
     company: string
@@ -36,12 +35,11 @@ const containerRef = ref(null)
 const cursorStore = useCursorStore()
 const { scrollYProgress } = useScroll({
   target: containerRef,
-  offset: ['-0.2 start', 'end end'],
+  offset: ['start start', 'end end'],
 })
-const activeBg = ref<number>(0)
-const currActiveBG = ref<number>(0)
+
 const variants = {
-  initial: { opacity: 0, x: 100, filter: 'blur(8px)' },
+  initial: { opacity: 0, y: 100, filter: 'blur(8px)' },
   visible: (custom: unknown) => ({
     opacity: 1,
     y: 0,
@@ -52,107 +50,55 @@ const variants = {
       delay: typeof custom === 'number' ? 0.05 * custom : 0,
     },
   }),
-  exit: { opacity: 0, x: 100, filter: 'blur(8px)' }
-}
-const proImageVariants = {
-  initial: { opacity: 0, filter: 'blur(8px)' },
-  visible: { 
-    opacity: 1, 
-    filter: 'blur(0px)', 
-    transition: {
-      duration: 0.5,
-    },
-  },
-  exit: { opacity: 0, filter: 'blur(8px)' }
-}
-
-const porjectHover = (index : number) => {
-  cursorStore.hovered;
-  activeBg.value = index;
-}
-
-const porjectHoverMobile = (index : number) => {
-  activeBg.value = index;
-  currActiveBG.value = index;
+  exit: { opacity: 0, y: 100, filter: 'blur(8px)' }
 }
 </script>
 
 <template>
   <section
     ref="containerRef"
-    class="w-full lg:min-h-[130dvh] relative workContainer py-40"
+    class="w-full relative workContainer !my-40 px-5 lg:px-0"
   >
-    <div class="w-full sticky top-30">
-      <div class="w-full lg:min-h-[80vh] lg:min-h-[80vh] relative grid grid-cols-2 gap-0 z-[2]">
-          <div class="col-span-2 lg:col-span-1 self-start"><h2 class="text-4xl leading-4xl font-black text-white pl-10">{{  title  }}</h2></div>
-          <div class="col-span-2 relative lg:absolute z-[1] lg:left-10 md:top-0 lg:top-20 lg:right-10 overflow-x-hidden block !my-20 xl:!my-0">
-        <AnimatePresence>
-          <div class="w-full flex justify-between flex-wrap">
-            <div class="w-full lg:w-6/12">
-              <div v-if="data" class="w-full relative">
-                <motion.div
-                  :key="`workImage${activeBg}`"
-                  class="w-11/12 lg:w-full !mx-auto lg:!m-0 aspect-video !bg-cover rounded-full relative z-[1] shadow-sm"
-                  :style="{ background : `url(${data[activeBg].Image.asset.url}) center center no-repeat` }"
-                  :variants="proImageVariants"
-                  initial="initial"
-                  animate="visible"
-                  exit="exit"
-                ></motion.div>
-              </div>
-            </div>
-            <div :key="`work${activeBg}`" class="hidden lg:block w-5/12 xl:w-4/12">
-              <ul class="flex flex-wrap gap-2" v-if="data">
-                <motion.li
-                  class="text-white text-md xl:text-2xl rounded-full px-5 py-2 border-white/10 border-solid border-1"
-                  v-for="(tech, index) in data[activeBg].tech" 
-                  :key="`tech${index}`"
-                  :variants="variants"
-                  initial="initial"
-                  animate="visible"
-                  exit="exit"
-                  :custom="index"
-                >{{ tech }}
-                </motion.li>
-              </ul>
-            </div>
-          </div>
-        </AnimatePresence>
+    <div class="w-full">
+      <div class="container !mx-auto">
+        <motion.h2
+          class="text-white text-3xl md:text-4xl font-normal block pb-10 md:pb-20"
+          :variants="variants"
+          initial="initial"
+          whileInView="visible"
+          :custom="0"
+          :inViewOptions="{ once: true, amount: 'all' }"
+          >{{ title }}</motion.h2>
       </div>
-          <div v-if="!isMobile" class="col-span-2 self-end relative z-[2]">
-            <div class="grid grid grid-cols-12 gap-10">
-              <div class="col-span-12 lg:col-span-4"></div>
-              <div class="col-span-12 lg:col-span-8 text-left md:text-right">
-                <div class="pl-10 md:pl-0 pr-10" v-if="data">
-                  <WorkLinks 
-                    v-for="(exp, index) in data" 
-                    :key="`experience${exp}`"
-                    :title="exp.title"
-                    :link="exp.link"
-                    :index="index * 50"
-                    :progress="scrollYProgress"
-                    :data="data"
-                    @mouseover="porjectHover(index)"
-                    @mouseleave="cursorStore.notHovered"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div v-if="isMobile" class="col-span-2 self-end relative z-[2]">
-            <motion.p
-                v-for="(expMob, expindex) in data" 
-                :key="`experienceMoble${expindex}`"
-                class="text-2xl md:text-4xl text-[var(--text-color)] hover:text-white font-normal !mb-5 lg:!mb-0 block !mx-5 block flex justify-between items-center"
-                :class="expindex == activeBg ? 'text-white' : null"
-                @click="() => porjectHoverMobile(expindex)"
+      <div class="w-full">
+      <div class="container !mx-auto">
+        <motion.div v-if="data" class="w-full grid grid-cols-4 gap-20">
+          <motion.div 
+            v-for="(project, index) in data" 
+            :key="`pro${index}`" 
+            class="col-span-4 lg:col-span-2 !bg-cover aspect-square md:aspect-[3/2] rounded-4xl overflow-hidden relative group"
+            :style="{ background : `url(${project.Image.asset.url}) center center no-repeat`}"
+            :variants="variants"
+            initial="initial"
+            whileInView="visible"
+            :custom="index"
+            :inViewOptions="{ once: true, amount: 0.5 }"
             >
-                <span>{{ expMob.title }}</span>
-                <a v-if="expindex == activeBg" :href="expMob.link" class="rounded-full bg-white inline-block p-2 text-black" target="_blank"><MoveRight /></a>
-            </motion.p>
-          </div>
-        </div>
+            <div class="absolute inset-y-0 left-0 w-[100%] md:w-[0%] z-[1] bg-black/80 md:bg-black group-hover:w-[100%] transition-[width] duration-500 opacity-100"></div>
+            <div class="absolute inset-0 z-[2] grid grid-cols-1">
+              <div class="col-span-1 p-10 self-start">
+                <h3 class="text-white text-3xl md:text-6xl !mb-5 !font-black leading-7xl uppercase col-span-1 self-start opacity-100 md:opacity-0 group-hover:opacity-100 transition-all duration-500 translate-x-0 md:-translate-x-10 group-hover:translate-x-0 delay-150 ease-in-out">{{ project.title }}</h3>
+                <ul class="w-full flex flex-wrap gap-2 opacity-100 md:opacity-0 group-hover:opacity-100 transition-all duration-500 translate-x-0 md:-translate-x-10 group-hover:translate-x-0 delay-250 ease-in-out">
+                  <li v-for="(tech, index) in project.tech" :key="`tech${index}`" class="text-sm text-white border-white border-1 border-solid rounded-full px-4 py-1">{{ tech }}</li>
+                </ul>
+              </div>
+              <a :href="project.link" class="text-white text-xl !m-10 block !self-end place-self-end opacity-100 md:opacity-0 group-hover:opacity-100 transition-[opacity] duration-500 delay-350" target="_blank"><SquareArrowUpRight :size="32" /></a>
+            </div>
+          </motion.div>
+        </motion.div>
       </div>
+    </div>
+  </div>
     </section>
   <section class="!pt-20 pb-40 overflow-hidden">
     <h3 class="text-3xl text-white font-bold w-10/12 md:w-1/2 text-center !mx-auto !mb-40">

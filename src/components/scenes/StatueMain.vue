@@ -188,6 +188,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
+  <TresPerspectiveCamera :position="[0, 0, 5]" :fov="35" :near="0.1" :far="100" />
   <TresDirectionalLight ref="accentLight" cast-shadow :position="[2, 1, 0]" :intensity="1" color="#e11d48" />
   <TresDirectionalLight cast-shadow :position="[-3, 0, 0]" :intensity="1" color="#ffffff" />
   <TresGroup>

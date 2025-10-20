@@ -1,24 +1,19 @@
 <script setup lang="ts">
-import { homepageStore } from '@/stores/sanity'
-import { motion } from 'motion-v'
+import { useProgress } from '@tresjs/cientos'
+import { ref } from 'vue'
 
-defineProps<{
-  loading: boolean
-}>()
+const progressData = await useProgress()  // top-level await
 
-const homeStore = homepageStore()
-
-const loadComplete = () => {
-  homeStore.completeLoading()
-}
+const progress = progressData.progress
+const hasFinishLoading = progressData.hasFinishLoading
 </script>
 
 <template>
-  <motion.div
-    class="flex w-full fixed inset-x-0 top-0 h-screen items-center justify-center bg-neutral-900 z-[99] overflow-hidden"
-    :animate="{ height: 0 }"
-    v-on:animation-complete="loadComplete"
+  <div
+    class="fixed left-0 top-0 bottom-0 right-0 z-[90] bg-black"
   >
-    <p class="text-white text-[5vw]">Loading....</p>
-  </motion.div>
+    <div class="absolute left-20 bottom-10 z-[1]">
+      <p class="text-white text-[5vw]">{{ Math.round(progress) }}%</p>
+    </div>
+  </div>
 </template>

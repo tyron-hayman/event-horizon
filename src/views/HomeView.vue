@@ -32,7 +32,9 @@ gemstore.setStatus("Tyron Hayman's Portfolio")
 
 <template>
   <div class="w-full">
-    <HomeScene />
+    <Suspense>
+      <HomeScene />
+    </Suspense>
     <div class="relative w-full z-[1]" v-if="homeStore.data && !homeStore.isLoading">
       <GlobalHeader :image="homeStore.siteAvatar" />
       <HeroComponent :title="homeStore.heroText" :image="homeStore.siteAvatar" />
