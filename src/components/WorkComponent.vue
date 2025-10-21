@@ -15,7 +15,7 @@ const props = defineProps<{
     link: string
     tech: []
     title: string
-  }>
+  }> | undefined
 }>()
 
 const brands: Array<string> = [

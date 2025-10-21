@@ -142,7 +142,15 @@ export const homepageStore = defineStore('homepage', {
     siteAvatar(state): (SanityImageData & { asset?: SanityImageAsset }) | undefined {
       return state.data?.Avatar
     },
-    siteWork(state): any[] | undefined {
+    siteWork(state): Array<{
+      _id: string
+      Image: { asset: { url: string } }
+      company: string
+      desc: string
+      link: string
+      tech: []
+      title: string
+    }> | undefined {
       return state.data?.projects
     },
     siteAboutTitle(state): string | undefined {
