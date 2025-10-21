@@ -33,7 +33,7 @@ const getAccessToken = async () => {
 const getTopTracks = async () => {
   // Endpoint reference : https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks
   return (await fetchWebApi(
-    'v1/me/top/tracks?time_range=long_term&limit=1', 'GET'
+    'v1/me/top/artists?offset=1&limit=1&time_range=short_term&locale=en-US,en;q%3D0.9', 'GET'
   )).items;
 }
 

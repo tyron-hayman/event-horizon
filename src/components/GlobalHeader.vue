@@ -4,7 +4,8 @@ import { useCursorStore } from '@/stores/cursor'
 import { useRoute, useRouter } from 'vue-router'
 import { getTopTracks } from '@/utils/spotify'
 import { easeInOut, motion } from 'motion-v'
-import { Music } from 'lucide-vue-next';
+import { Terminal } from 'lucide-vue-next';
+
 
 defineProps<{
   image?: (SanityImageData & { asset?: SanityImageAsset | undefined }) | undefined
@@ -14,7 +15,6 @@ const cursorStore = useCursorStore()
 const router = useRouter()
 const route = useRoute()
 const topTrack = await getTopTracks();
-console.log(topTrack)
 const navArr: Array<{ title: string; target?: string; link?: string; link_target?: string }> = [
   { title: 'Work', target: 'workContainer' },
   { title: 'About', target: 'aboutContainer' },
@@ -27,7 +27,6 @@ const handleNavLink = (e: MouseEvent) => {
   const el = document.querySelector(`.${target}`)
   const isBlogPage = route.fullPath.startsWith('/blog')
   const isWorkPage = route.fullPath.startsWith('/work')
-  console.log(route.fullPath)
 
   if (isBlogPage || isWorkPage) {
     router.push({ path: '/', hash: `#${target}` })
@@ -48,16 +47,22 @@ const goHome = (): void => {
 <template>
   <div class="fixed w-full inset-x-0 top-0 z-[80] bg-linear-to-b from-black from-20% to-black/0">
     <div class="w-full flex justify-between items-center p-5 md:p-10 pb-30">
-      <div v-if="image" class="flex items-center gap-4">
+      <div class="">
+        <p class="text-lg text-white !font-black"><Terminal :size="24" class="inline-block" /> Frontend Developer</p>
+      </div>
+
+      <div v-if="image" class="flex items-center gap-4 hidden md:block">
         <div v-if="topTrack" v-for="(artist, index) in topTrack" class="flex items-center rounded-full overflow-hidden">
-          <div class="w-[50px] aspect-square rounded-full overflow-hidden !bg-cover relative z-[1] border-white border-1 border-solid" :style="{ background : `url(${artist.album.images[0].url}) center center no-repeat` }"></div>
-          <p class="text-sm text-black p-3 relative z-[0] rounded-full bg-white flex items-center gap-1">
-            <span class="hidden md:inline-block !font-black">Spotify - </span> 
-            <span class="inline-block md:hidden"><Music :size="16" /> </span> 
-            {{ artist.artists[0].name }}
-          </p>
+          <div class="w-[42px] aspect-square rounded-full overflow-hidden !bg-cover relative z-[1] border-white border-1 border-solid" :style="{ background : `url(${artist.images[0].url}) center center no-repeat` }"></div>
+          <motion.p 
+            class="text-sm leading-[1] text-black py-2 px-3 relative z-[0] rounded-full bg-white grid grid-cols-1 content-start"
+          >
+            <span class="!font-black col-span-1">Current Spotify</span> 
+            <span class="col-span-1">{{ artist.name }}</span>
+          </motion.p>
         </div>
       </div>
+
       <div>
         <ul class="flex items-center gap-2 md:gap-4">
           <li v-for="(navItem, index) in navArr" :key="`nav${index}`">
