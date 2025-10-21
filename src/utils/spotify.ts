@@ -37,7 +37,4 @@ const getTopTracks = async () => {
   )).items;
 }
 
-const topTracks = await getTopTracks();
-
-
 export { getTopTracks };
