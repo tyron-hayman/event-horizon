@@ -2,7 +2,7 @@
 import { motion, useMotionValue, useSpring } from 'motion-v'
 import { onMounted, onUnmounted } from 'vue'
 import { useCursorStore } from '@/stores/cursor'
-import { Pointer, MessageCircleHeart, Send } from 'lucide-vue-next'
+import { Pointer, MessageCircleHeart, Send, ArrowDown } from 'lucide-vue-next'
 
 const xPos = useMotionValue(0)
 const yPos = useMotionValue(0)
@@ -28,7 +28,7 @@ onUnmounted(() => {
 <template>
   <motion.div
     class="fixed items-center justify-center left-0 top-0 z-[90] block w-[50px] h-[50px] rounded-full pointer-events-none hidden xl:flex transition-[width] transition-[height]"
-    :class="cursorStore.stauts ? 'bg-blue-600' : 'border-blue-500 border-2 border-dashed'"
+    :class="cursorStore.stauts ? 'bg-rose-500' : 'border-rose-500 border-2 border-dashed'"
     :style="{ x, y }"
     :transition="{ type: 'spring', velocity: 2 }"
   >
@@ -40,6 +40,9 @@ onUnmounted(() => {
     </div>
     <div v-if="cursorStore.stauts && cursorStore.stauts == 'mail'" class="w-1/2 block">
       <Send color="#ffffff" />
+    </div>
+    <div v-if="cursorStore.stauts && cursorStore.stauts == 'scroll'" class="w-1/2 block">
+      <ArrowDown color="#ffffff" class="animate-bounce" />
     </div>
   </motion.div>
 </template>

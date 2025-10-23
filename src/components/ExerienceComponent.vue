@@ -20,7 +20,7 @@ const variants = {
   <div class="w-full px-5 py-20 md:px-10 xl:px-0 md:py-10 flex justify-center">
     <div class="container min-h-[700px]">
       <motion.h2
-        class="text-white text-3xl md:text-4xl font-normal block pb-10 md:pb-20"
+        class="text-white text-2xl md:text-2l !font-black block pb-10 md:pb-10"
         :variants="variants"
         initial="hidden"
         whileInView="visible"
@@ -30,7 +30,7 @@ const variants = {
       <div v-if="data" class="w-full">
         <motion.div
           v-for="(exp, index) in data"
-          class="md:flex items-center border-t-1 border-t-white/10 border-t-solid w-full py-10"
+          class="md:flex items-center border-t-1 border-t-white/10 border-t-solid w-full py-5"
           :key="`experience${index}`"
           :variants="variants"
           initial="hidden"
@@ -40,11 +40,11 @@ const variants = {
           <h3 class="text-white text-2xl p-0 m-0 w-full md:w-4/12 lg:w-3/12">
             {{ exp.company }}
           </h3>
-          <p class="text-neutral-400 text-md lg:text-xl p-0 py-4 md:m-0 w-full md:w-6/12">
+          <p class="text-[var(--text-color)] text-md lg:text-xl p-0 py-4 md:m-0 w-full md:w-6/12">
             {{ exp.role }}
           </p>
           <p
-            class="text-neutral-400 text-md lg:text-xl p-0 m-0 w-full md:w-4/12 lg:w-3/12 md:text-right"
+            class="text-[var(--text-color)] text-md lg:text-xl p-0 m-0 w-full md:w-4/12 lg:w-3/12 md:text-right"
           >
             {{ exp.date }}
           </p>

@@ -32,7 +32,7 @@ const variants = {
   >
     <div class="container">
       <motion.h2
-        class="text-neutral-700 text-6xl md:text-8xl xl:text-[10vw] font-normal block"
+        class="text-[var(--text-color)] text-6xl md:text-8xl xl:text-[10vw] font-normal block"
         :variants="variants"
         initial="hidden"
         whileInView="visible"

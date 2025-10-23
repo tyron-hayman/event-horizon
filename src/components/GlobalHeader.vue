@@ -48,7 +48,7 @@ const goHome = (): void => {
   <div class="fixed w-full inset-x-0 top-0 z-[80] bg-linear-to-b from-black from-20% to-black/0">
     <div class="w-full flex justify-between items-center p-5 md:p-10 pb-30">
       <div class="">
-        <p class="text-lg text-white !font-black"><Terminal :size="24" class="inline-block" /> Frontend Developer</p>
+        <p class="text-lg text-white"><Terminal :size="24" class="inline-block" /> <span class="hidden md:inline-block !font-black">Frontend Developer</span> <span class="inline-block md:hidden !font-black">FD</span></p>
       </div>
 
       <div v-if="image" class="flex items-center gap-4 hidden md:block">

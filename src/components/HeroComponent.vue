@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from 'motion-v'
 import type { Ref } from 'vue'
 import { ref } from 'vue'
 import { type SanityImageData, type SanityImageAsset } from '@/utils/sanity/sanity'
+import { useCursorStore } from '@/stores/cursor'
 
 const props = defineProps<{
   title?: string
@@ -15,6 +16,7 @@ const { scrollYProgress } = useScroll({
 const opacity = useTransform(scrollYProgress, [0,1], [1,0]);
 const y = useTransform(scrollYProgress, [0,1], [0, -200]);
 const blur = useTransform(scrollYProgress, [0,1], ["blur(0px)", "blur(8px)"]);
+const cursorStore = useCursorStore()
 </script>
 
 <template>
@@ -22,6 +24,8 @@ const blur = useTransform(scrollYProgress, [0,1], ["blur(0px)", "blur(8px)"]);
     ref="heroRef"
     class="w-full relative flex items-end h-screen min-h-screen z-[1]"
     :style="{ opacity, y, filter : blur }"
+    @mouseover="cursorStore.scroll"
+    @mouseleave="cursorStore.notHovered"
   >
     <div class="w-full">
       <div class="p-5 pb-20 md:p-10">

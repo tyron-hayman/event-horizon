@@ -15,6 +15,8 @@ export const useCursorStore = defineStore('cursor', () => {
   function notHovered() {
     stauts.value = ''
   }
-
-  return { stauts, hovered, hoveredLove, hoveredMail, notHovered }
+  function scroll() {
+    stauts.value = 'scroll'
+  }
+  return { stauts, hovered, hoveredLove, hoveredMail, notHovered, scroll }
 })

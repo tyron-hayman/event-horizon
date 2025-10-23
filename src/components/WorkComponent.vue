@@ -52,6 +52,10 @@ const variants = {
   }),
   exit: { opacity: 0, y: 100, filter: 'blur(8px)' }
 }
+
+const openLink = ( url : string ) => {
+  window.open(url);
+}
 </script>
 
 <template>
@@ -76,13 +80,16 @@ const variants = {
           <motion.div 
             v-for="(project, index) in data" 
             :key="`pro${index}`" 
-            class="col-span-4 lg:col-span-2 !bg-cover aspect-square md:aspect-[3/2] rounded-4xl overflow-hidden relative group"
+            class="col-span-4 lg:col-span-2 !bg-cover aspect-square md:aspect-[3/2] rounded-3xl overflow-hidden relative group"
             :style="{ background : `url(${project.Image.asset.url}) center center no-repeat`}"
             :variants="variants"
             initial="initial"
             whileInView="visible"
             :custom="index"
             :inViewOptions="{ once: true, amount: 0.5 }"
+            @hoverStart="cursorStore.hovered"
+            @hoverEnd="cursorStore.notHovered"
+            @click="openLink(project.link)"
             >
             <div class="absolute inset-y-0 left-0 w-[100%] md:w-[0%] z-[1] bg-black/80 md:bg-black group-hover:w-[100%] transition-[width] duration-500 opacity-100"></div>
             <div class="absolute inset-0 z-[2] grid grid-cols-1">
@@ -92,7 +99,7 @@ const variants = {
                   <li v-for="(tech, index) in project.tech" :key="`tech${index}`" class="text-sm text-white border-white border-1 border-solid rounded-full px-4 py-1">{{ tech }}</li>
                 </ul>
               </div>
-              <a :href="project.link" class="text-white text-xl !m-10 block !self-end place-self-end opacity-100 md:opacity-0 group-hover:opacity-100 transition-[opacity] duration-500 delay-350" target="_blank"><SquareArrowUpRight :size="32" /></a>
+              <p class="text-white text-xl !m-10 block !self-end place-self-end opacity-100 md:opacity-0 group-hover:opacity-100 transition-[opacity] duration-500 delay-350"><SquareArrowUpRight :size="32" /></p>
             </div>
           </motion.div>
         </motion.div>
@@ -105,15 +112,15 @@ const variants = {
       I've had the honor to work with some large companies while freelancing and during fulltime
       employment.
     </h3>
-    <div class="-rotate-5">
+    <div class="-rotate-5 border-y-2 border-y-white border-dashed scale-102 py-5">
       <Vue3Marquee :duration="40" :pauseOnHover="true">
         <span
           v-for="(brand, index) in brands"
           :key="`brand${index}`"
           class="text-4xl md:text-8xl text-white font-bold flex items-center"
         >
-          <span class="bg-white text-black p-5">{{ brand }}</span
-          ><span class="px-10"><Dot :size="64" /></span>
+          <span class="text-white p-5 rounded-3xl">{{ brand }}</span
+          ><span class="px-10"><Dot :size="64" color="#ffffff" /></span>
         </span>
       </Vue3Marquee>
     </div>
